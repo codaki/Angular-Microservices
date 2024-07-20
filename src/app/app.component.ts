@@ -3,11 +3,12 @@ import { Component, inject, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { MasterService } from './Service/master.service';
 import { ICurso, ICursoUsuario, IUsuario } from './model/usuario';
+import { EstudiantesPageComponent } from "./estudiantes-page/estudiantes-page.component";
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, RouterOutlet],
+  imports: [CommonModule, RouterOutlet, EstudiantesPageComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })

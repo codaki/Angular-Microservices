@@ -9,12 +9,12 @@ import { ICursoUsuario, IUsuario } from '../model/usuario';
 export class MasterService {
   apiUrl: string = 'http://localhost:8001/';
   apiUrl1: string = 'http://localhost:8002/';
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   getCursos(): Observable<ICursoUsuario[]> {
-    return this.http.get<ICursoUsuario[]>(this.apiUrl1 + 'listar');
+    return this.http.get<ICursoUsuario[]>(this.apiUrl1 + 'getCursos');
   }
   getUsuarios(): Observable<IUsuario[]> {
-    return this.http.get<IUsuario[]>(this.apiUrl + 'usuarios');
+    return this.http.get<IUsuario[]>(this.apiUrl + 'getUsers');
   }
 }

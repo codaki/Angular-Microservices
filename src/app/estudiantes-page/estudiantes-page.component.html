@@ -1,0 +1,17 @@
+<div>
+    <h1>Estudiantes</h1>
+    <table class="table">
+        <tbody>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Email</th>
+            @for (item of usuarios; track 'id') {
+            <tr>
+                <td>{{ item.id }}</td>
+                <td>{{ item.nombre }}</td>
+                <td>{{ item.email }}</td>
+            </tr>
+            }
+        </tbody>
+    </table>
+</div>
