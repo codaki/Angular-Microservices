@@ -1,28 +1,17 @@
-<<<<<<< Updated upstream
-import { Component } from '@angular/core';
-=======
 import { Component, inject, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MasterService } from '../Service/master.service';
 import { IUsuario, CUsuario,ICurso,CCurso } from '../model/usuario';
 import { FormsModule } from '@angular/forms';
->>>>>>> Stashed changes
 
 @Component({
   selector: 'app-relacion-page',
   standalone: true,
-<<<<<<< Updated upstream
-  imports: [],
-  templateUrl: './relacion-page.component.html',
-  styleUrl: './relacion-page.component.css'
-})
-export class RelacionPageComponent {
-
-=======
   imports: [FormsModule, CommonModule],
   templateUrl: './relacion-page.component.html',
   styleUrl: './relacion-page.component.css'
 })
+
 export class RelacionPageComponent implements OnInit {
   @ViewChild('cursoModal') cursoModal?: ElementRef;
   cursos: ICurso[] = [];
@@ -114,5 +103,4 @@ export class RelacionPageComponent implements OnInit {
       );
     }
   }
->>>>>>> Stashed changes
 }
