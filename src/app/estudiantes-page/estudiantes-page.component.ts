@@ -15,6 +15,7 @@ declare const bootstrap: any;
 })
 export class EstudiantesPageComponent implements OnInit {
   @ViewChild('userModal') usuarioModal?: ElementRef;
+  @ViewChild('alertContainer') alertContainer!: ElementRef;
   usuarios: IUsuario[] = [];
   usuario: CUsuario = new CUsuario();
   usuarioId: number = 0;
@@ -37,19 +38,19 @@ export class EstudiantesPageComponent implements OnInit {
       },
       error: (err) => {
         console.error('Error al añadir usuario:', err);
-        alert('Ocurrió un error al añadir el usuario. Por favor, inténtelo de nuevo.');
+        this.showBootstrapAlert('danger', 'Ocurrió un error al añadir el usuario. Por favor, inténtelo de nuevo.');
       }
     });
   }
   deleteUsuario(idUsario: number) {
     this.masterService.deleteUsuario(idUsario).subscribe({
       next: () => {
-        alert('Usuario eliminado');
+        this.showBootstrapAlert('success', 'Usuario eliminado');
         this.loadUsuarios();
       },
       error: (err) => {
         console.error('Error al eliminar usuario:', err);
-        alert('Error al eliminar usuario.');
+        this.showBootstrapAlert('danger', 'Error al eliminar usuario.');
       }
     });
   }
@@ -61,7 +62,7 @@ export class EstudiantesPageComponent implements OnInit {
       },
       error: (err) => {
         console.error('Error al modificar usuario:', err);
-        alert('Ocurrió un error al modificar el usuario. Por favor, inténtelo de nuevo.');
+        this.showBootstrapAlert('danger', 'Ocurrió un error al modificar el usuario. Por favor, inténtelo de nuevo.');
       }
     });
   }
@@ -69,6 +70,22 @@ export class EstudiantesPageComponent implements OnInit {
   onUpdateUsuario(usuario: CUsuario, id: number) {
     this.usuario = usuario;
     this.usuarioId = id;
+  }
+
+  showBootstrapAlert(type: string, message: string) {
+    const alertDiv = document.createElement('div');
+    alertDiv.classList.add('alert', `alert-${type}`);
+    alertDiv.setAttribute('role', 'alert');
+    alertDiv.textContent = message;
+
+    // Agrega la alerta al contenedor obtenido con ViewChild
+    this.alertContainer.nativeElement.innerHTML = ''; // Limpia el contenedor antes de agregar la nueva alerta
+    this.alertContainer.nativeElement.appendChild(alertDiv);
+
+    // Cierra automáticamente la alerta después de 5 segundos
+    setTimeout(() => {
+      this.alertContainer.nativeElement.innerHTML = '';
+    }, 5000);  // Cambia el tiempo según tus necesidades
   }
 
   closeModal() {
