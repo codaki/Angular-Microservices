@@ -1,3 +1,6 @@
+<!doctype html>
+<html lang="en">
+
 <head>
     <meta charset="utf-8">
     <title>Matrícula Escolar</title>
@@ -41,44 +44,29 @@
 
         body {
             margin: 0;
-            padding: 0;
+            padding: 1rem;
             height: 100%;
             display: flex;
             flex-direction: column;
         }
 
-        /* Asegurarse de que el contenedor principal ocupe todo el ancho */
-        .main-container {
-            width: 100vw;
-            height: 30vh;
-            /* Usar 100vw para asegurarse de que cubra toda la ventana */
-            margin: 0;
-            padding: 0;
-        }
-
-        /* Estilos para el header */
         header {
-            padding-top: 10vh;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
             background-color: rgb(240, 207, 20);
             padding: 1rem;
             color: rgb(0, 0, 0);
-            width: 99.999vw;
-            /* Usar 100vw para asegurarse de que cubra toda la ventana */
-            position: relative;
             border-bottom: 2px solid var(--bright-blue);
-            margin: 0;
-            /* Eliminar margen */
+            z-index: 1000;
         }
 
-        /* Asegurarse de que el contenedor del header ocupe todo el ancho */
         header .container {
-            
             display: flex;
             align-items: center;
             justify-content: space-between;
             width: 100%;
-            color: #ffffff;
-            /* Ajustar el ancho al 100% */
             margin: 0 auto;
         }
 
@@ -115,6 +103,8 @@
             flex: 1;
             display: flex;
             padding: 1rem;
+            margin-top: 80px; /* Altura del header */
+            margin-bottom: 80px; /* Altura del footer */
             box-sizing: border-box;
         }
 
@@ -147,17 +137,16 @@
         }
 
         footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
             background-color: var(--gray-900);
             color: #ffffff;
             padding: 1rem;
             text-align: center;
-            width: 99.999vw;
-            height: 20%;
-
-            position: relative;
             border-top: 2px solid var(--bright-blue);
-            margin: 0;
-            /* Eliminar margen */
+            z-index: 1000;
         }
 
         .footer-links {
@@ -176,17 +165,6 @@
             text-decoration: underline;
         }
     </style>
-</head>
-
-<head>
-    <meta charset="utf-8">
-    <title>Matrícula Escolar</title>
-    <base href="/">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="icon" type="image/x-icon" href="favicon.ico">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
 </head>
 
 <body>
@@ -246,7 +224,10 @@
                     <a href="#"><i class="bi bi-instagram"></i></a>
                 </div>
             </div>
-
+            <hr class="my-4">
+            <div class="text-center">
+                <p class="mb-0">© 2024 Colegio Manitas del Saber. Todos los derechos reservados.</p>
+            </div>
         </div>
     </footer>
 
@@ -257,3 +238,5 @@
         integrity="sha384-FTXlA4VIwLr6E6z6E5sh2s/lK6VXZgFrV2AsE/sI+E3j6u6gI8K8I7f5nH4CxT6S"
         crossorigin="anonymous"></script>
 </body>
+
+</html>
