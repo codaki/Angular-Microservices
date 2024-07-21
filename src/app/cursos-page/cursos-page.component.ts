@@ -37,7 +37,7 @@ export class CursosPageComponent implements OnInit {
       },
       error: (err) => {
         console.error('Error al añadir curso:', err);
-        alert('Ocurrió un error al añadir el curso. Por favor, inténtelo de nuevo.');
+        alert('Ocurrió un error al añadir el curso. Por favor, verifique que el nombre del curso no exista e inténtelo de nuevo.');
       }
     });
   }
@@ -56,7 +56,7 @@ export class CursosPageComponent implements OnInit {
       },
       error: (err) => {
         console.error('Error al modificar curso:', err);
-        alert('Ocurrió un error al modificar el curso. Por favor, inténtelo de nuevo.');
+        alert('Ocurrió un error al modificar el curso. Por favor, verifique que el nombre del curso no exista e inténtelo de nuevo.');
       }
     });
   }
