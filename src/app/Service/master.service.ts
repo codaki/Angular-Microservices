@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { /*ICursoUsuario,*/ IUsuario, CUsuario, ICurso, CCurso } from '../model/usuario';
+import { ICursoUsuario, CCursoCompleto, ICursoCompleto, IUsuario, CUsuario, ICurso, CCurso } from '../model/usuario';
 
 @Injectable({
   providedIn: 'root',
@@ -24,14 +24,16 @@ export class MasterService {
     return this.http.put<CCurso>(this.apiUrlCurso + 'modificarCurso/' + id, curso);
   }
   asignarUsuario(idCurso: number, usuario: IUsuario): Observable<any> {
-    console.log(idCurso);
-    console.log(usuario);
     const url = `${this.apiUrlCurso}asignarUsuario/${idCurso}`;
     return this.http.put<any>(url, usuario, {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
       })
     });
+  }
+
+  getCursosCompletos(): Observable<ICursoCompleto[]> {
+    return this.http.get<ICursoCompleto[]>(this.apiUrlCurso + 'getCursos');
   }
   getUsuariosNoMatriculados(): Observable<IUsuario[]> {
     return this.http.get<IUsuario[]>(this.apiUrlCurso + 'usuarioIds');

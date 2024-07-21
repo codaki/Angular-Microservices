@@ -29,15 +29,25 @@ export class CCurso {
   }
 }
 
-export interface ICursoUsuario {
+export interface ICursoCompleto {
   id: number;
   nombre: string;
-  cursoUsuario: ICurso[];
+  cursoUsuarios: ICursoUsuario[];
 }
 
-/*export interface ICurso {
+export interface ICursoUsuario {
   id: number;
   usuarioId: number;
 }
 
-*/
+export class CCursoCompleto {
+  id: number;
+  nombre: string;
+  cursoUsuario: ICursoUsuario[];
+
+  constructor() {
+    this.id = 0;
+    this.nombre = '';
+    this.cursoUsuario = [];
+  }
+}

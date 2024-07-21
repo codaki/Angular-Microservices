@@ -1,7 +1,7 @@
 import { Component, inject, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MasterService } from '../Service/master.service';
-import { IUsuario, CUsuario, ICurso, CCurso, ICursoUsuario } from '../model/usuario';
+import { IUsuario, CUsuario, ICurso, CCurso, ICursoUsuario, ICursoCompleto, CCursoCompleto } from '../model/usuario';
 import { FormsModule } from '@angular/forms';
 
 @Component({
@@ -15,26 +15,55 @@ import { FormsModule } from '@angular/forms';
 export class RelacionPageComponent implements OnInit {
   @ViewChild('cursoModal') cursoModal?: ElementRef;
   cursos: ICurso[] = [];
-  usuarios: IUsuario[] = [];
   usuariosMatriculados: IUsuario[] = [];
+  usuarios: IUsuario[] = [];
   curso: CCurso = new CCurso();
   cursoId: number = 0;
+
+  cursosCompletos: ICursoCompleto[] = [];
 
   ngOnInit(): void {
     this.loadCursos();
     this.loadEstudiantes();
+    this.loadUsuarios();
+    this.loadCursosCompletos();
   }
 
   masterService = inject(MasterService);
+
+  loadCursosCompletos() {
+    this.masterService.getCursosCompletos().subscribe((res: ICursoCompleto[]) => {
+      console.log(res);
+      this.cursosCompletos = res;
+    });
+  }
+
+  trackById(index: number, item: any): number {
+    return item.id;
+  }
+
+  getUsuarioNombre(usuarioId: number): string {
+    const usuario = this.usuarios.find(user => user.id === usuarioId);
+    return usuario ? usuario.nombre : 'Desconocido';
+  }
+
   loadCursos() {
     this.masterService.getCursos().subscribe((res: ICurso[]) => {
       console.log(res);
       this.cursos = res;
     });
   }
+
+  loadUsuarios() {
+    this.masterService.getUsuarios().subscribe((res: IUsuario[]) => {
+      console.log(res);
+      this.usuarios = res;
+    });
+  }
+
   loadEstudiantes(): void {
     this.masterService.getUsuariosNoMatriculados().subscribe(data => {
-      this.usuarios = data; // Asigna los estudiantes obtenidos a la variable
+      this.usuariosMatriculados = data;
     });
   }
   addCurso() {
@@ -98,6 +127,8 @@ export class RelacionPageComponent implements OnInit {
           console.log(res);
           this.loadCursos();
           this.loadEstudiantes();
+          this.loadUsuarios();
+          this.loadCursosCompletos();
           this.closeModal();
         },
         error: (err) => {
