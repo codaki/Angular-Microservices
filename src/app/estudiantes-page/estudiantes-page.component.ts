@@ -4,6 +4,8 @@ import { MasterService } from '../Service/master.service';
 import { IUsuario, CUsuario } from '../model/usuario';
 import { FormsModule } from '@angular/forms';
 
+declare const bootstrap: any;
+
 @Component({
   selector: 'app-estudiantes-page',
   standalone: true,
@@ -13,6 +15,7 @@ import { FormsModule } from '@angular/forms';
 })
 export class EstudiantesPageComponent implements OnInit {
   @ViewChild('userModal') usuarioModal?: ElementRef;
+  @ViewChild('alertContainer') alertContainer!: ElementRef;
   usuarios: IUsuario[] = [];
   usuario: CUsuario = new CUsuario();
   usuarioId: number = 0;
@@ -24,45 +27,42 @@ export class EstudiantesPageComponent implements OnInit {
   masterService = inject(MasterService);
   loadUsuarios() {
     this.masterService.getUsuarios().subscribe((res: IUsuario[]) => {
-      console.log(res);
       this.usuarios = res;
     });
   }
   addUsuario() {
     this.masterService.addUsuario(this.usuario).subscribe({
       next: (res: CUsuario) => {
-        console.log(res);
         this.loadUsuarios();
         this.closeModal();
       },
       error: (err) => {
         console.error('Error al añadir usuario:', err);
-        alert('Ocurrió un error al añadir el usuario. Por favor, inténtelo de nuevo.');
+        this.showBootstrapAlert('danger', 'Ocurrió un error al añadir el usuario. Por favor, inténtelo de nuevo.');
       }
     });
   }
   deleteUsuario(idUsario: number) {
     this.masterService.deleteUsuario(idUsario).subscribe({
       next: () => {
-        console.log('Usuario eliminado');
+        this.showBootstrapAlert('success', 'Usuario eliminado');
         this.loadUsuarios();
       },
       error: (err) => {
         console.error('Error al eliminar usuario:', err);
-        alert('Error al eliminar usuario.');
+        this.showBootstrapAlert('danger', 'Error al eliminar usuario.');
       }
     });
   }
   updateUsuario() {
     this.masterService.updateUsuario(this.usuario, this.usuarioId).subscribe({
       next: (res: CUsuario) => {
-        console.log(res);
         this.loadUsuarios();
         this.closeModal();
       },
       error: (err) => {
         console.error('Error al modificar usuario:', err);
-        alert('Ocurrió un error al modificar el usuario. Por favor, inténtelo de nuevo.');
+        this.showBootstrapAlert('danger', 'Ocurrió un error al modificar el usuario. Por favor, inténtelo de nuevo.');
       }
     });
   }
@@ -72,13 +72,31 @@ export class EstudiantesPageComponent implements OnInit {
     this.usuarioId = id;
   }
 
+  showBootstrapAlert(type: string, message: string) {
+    const alertDiv = document.createElement('div');
+    alertDiv.classList.add('alert', `alert-${type}`);
+    alertDiv.setAttribute('role', 'alert');
+    alertDiv.textContent = message;
+
+    // Agrega la alerta al contenedor obtenido con ViewChild
+    this.alertContainer.nativeElement.innerHTML = ''; // Limpia el contenedor antes de agregar la nueva alerta
+    this.alertContainer.nativeElement.appendChild(alertDiv);
+
+    // Cierra automáticamente la alerta después de 5 segundos
+    setTimeout(() => {
+      this.alertContainer.nativeElement.innerHTML = '';
+    }, 5000);  // Cambia el tiempo según tus necesidades
+  }
+
   closeModal() {
     if (this.usuarioModal) {
-      (this.usuarioModal.nativeElement as HTMLElement).classList.remove('show');
-      (this.usuarioModal.nativeElement as HTMLElement).setAttribute('aria-hidden', 'true');
-      (this.usuarioModal.nativeElement as HTMLElement).setAttribute('style', 'display: none');
-      document.body.classList.remove('modal-open');
-      document.body.removeChild(document.querySelector('.modal-backdrop')!);
+      const modalElement = this.usuarioModal?.nativeElement;
+      if (modalElement) {
+        const modalInstance = bootstrap.Modal.getInstance(modalElement);
+        if (modalInstance) {
+          modalInstance.hide();
+        }
+      }
 
       this.usuario = new CUsuario();
       this.usuarioId = 0;
