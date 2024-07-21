@@ -21,7 +21,7 @@ export interface ICurso {
   nombre: string;
 }
 
-export class CCurso{
+export class CCurso {
   nombre: string;
 
   constructor() {
@@ -29,13 +29,15 @@ export class CCurso{
   }
 }
 
+export interface ICursoUsuario {
+  id: number;
+  nombre: string;
+  cursoUsuario: ICurso[];
+}
+
 /*export interface ICurso {
   id: number;
   usuarioId: number;
 }
 
-export interface ICursoUsuario {
-  id: number;
-  nombre: string;
-  cursoUsuario: ICurso[];
-}*/
+*/

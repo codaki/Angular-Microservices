@@ -42,9 +42,15 @@ export class EstudiantesPageComponent implements OnInit {
     });
   }
   deleteUsuario(idUsario: number) {
-    this.masterService.deleteUsuario(idUsario).subscribe(() => {
-      console.log("Usuario eliminado");
-      this.loadUsuarios();
+    this.masterService.deleteUsuario(idUsario).subscribe({
+      next: () => {
+        console.log('Usuario eliminado');
+        this.loadUsuarios();
+      },
+      error: (err) => {
+        console.error('Error al eliminar usuario:', err);
+        alert('Error al eliminar usuario.');
+      }
     });
   }
   updateUsuario() {

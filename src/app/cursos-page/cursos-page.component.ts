@@ -1,7 +1,7 @@
 import { Component, inject, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MasterService } from '../Service/master.service';
-import { IUsuario, CUsuario,ICurso,CCurso } from '../model/usuario';
+import { IUsuario, CUsuario, ICurso, CCurso } from '../model/usuario';
 import { FormsModule } from '@angular/forms';
 
 @Component({
@@ -42,9 +42,15 @@ export class CursosPageComponent implements OnInit {
     });
   }
   deleteCurso(idCurso: number) {
-    this.masterService.deleteCurso(idCurso).subscribe(() => {
-      console.log("Curso eliminado");
-      this.loadCursos();
+    this.masterService.deleteCurso(idCurso).subscribe({
+      next: () => {
+        console.log("Curso eliminado");
+        this.loadCursos();
+      },
+      error: (err) => {
+        console.error('Error al eliminar curso:', err);
+        alert('Error al eliminar curso.');
+      }
     });
   }
   updateCurso() {

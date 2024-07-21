@@ -1,7 +1,7 @@
 import { Component, inject, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MasterService } from '../Service/master.service';
-import { IUsuario, CUsuario,ICurso,CCurso } from '../model/usuario';
+import { IUsuario, CUsuario, ICurso, CCurso, ICursoUsuario } from '../model/usuario';
 import { FormsModule } from '@angular/forms';
 
 @Component({
@@ -16,6 +16,7 @@ export class RelacionPageComponent implements OnInit {
   @ViewChild('cursoModal') cursoModal?: ElementRef;
   cursos: ICurso[] = [];
   usuarios: IUsuario[] = [];
+  usuariosMatriculados: IUsuario[] = [];
   curso: CCurso = new CCurso();
   cursoId: number = 0;
 
@@ -92,14 +93,18 @@ export class RelacionPageComponent implements OnInit {
     const usuario = this.usuarios.find(e => e.id === estudianteId);
     console.log(usuario);
     if (usuario) {
-      this.masterService.asignarUsuario(this.cursoId, usuario).subscribe(
-        response => {
-          console.log('Estudiante matriculado con éxito', response);
+      this.masterService.asignarUsuario(this.cursoId, usuario).subscribe({
+        next: (res) => {
+          console.log(res);
+          this.loadCursos();
+          this.loadEstudiantes();
           this.closeModal();
         },
-        error => {
-          console.error('Error matriculando al estudiante', error);
+        error: (err) => {
+          console.error('Error al matricular estudiante:', err);
+          alert('Ocurrió un error al matricular el estudiante. Por favor, inténtelo de nuevo.');
         }
+      }
       );
     }
   }

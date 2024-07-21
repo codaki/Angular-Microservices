@@ -22,8 +22,8 @@ export class AppComponent implements OnInit {
 
   id: number = 0;
   ngOnInit(): void {
-   // this.loadCursos();
-    this.loadUsuarios();
+    // this.loadCursos();
+    // this.loadUsuarios();
   }
   /*loadCursos() {
     this.masterService.getCursos().subscribe((res: ICursoUsuario[]) => {
@@ -32,10 +32,10 @@ export class AppComponent implements OnInit {
       this.relacion = res[0].cursoUsuario;
     });
   }*/
-  loadUsuarios() {
-    this.masterService.getUsuarios().subscribe((res: IUsuario[]) => {
-      console.log(res);
-      this.usuarios = res;
-    });
-  }
+  // loadUsuarios() {
+  //   this.masterService.getUsuarios().subscribe((res: IUsuario[]) => {
+  //     console.log(res);
+  //     this.usuarios = res;
+  //   });
+  // }
 }
