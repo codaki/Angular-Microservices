@@ -3,6 +3,11 @@
     place-items: center;
 }
 
+.grid{
+    display: grid;
+
+}
+
 .pageSize {
     height: 95vh;
     width: 98vw;
@@ -25,7 +30,7 @@
 }
 
 .grid-2row-top {
-    grid-template-rows: 5% 95%;
+    grid-template-rows: 20% 80%;
 }
 
 .grid-2col-equal {

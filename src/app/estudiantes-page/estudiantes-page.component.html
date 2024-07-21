@@ -17,6 +17,7 @@
     </div>
     <br>
     <div class="cborder p-3 shadow btn-color-border">
+        <div id="alertPagina" #alertPagina></div>
         <button type="button" class="btn btn-color" data-bs-toggle="modal" data-bs-target="#userModal">
             Crear un nuevo estudiante
         </button>
@@ -92,7 +93,7 @@
                                     [(ngModel)]="usuario.password">
                             </div>
                         </div>
-                        <div id="alertContainer" #alertContainer></div>
+                        <div id="alertModal" #alertModal></div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" (click)="closeModal()">Cancelar</button>
                             @if (usuarioId == 0) {

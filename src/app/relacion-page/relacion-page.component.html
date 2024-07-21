@@ -17,7 +17,7 @@
 
     </div>
     <br>
-    <div class="gridCentrao pageSize grid-2col-equal container-todo">
+    <div class="gridCentrao pageSize grid-2col-equal container-todo shadow">
         
         <div class="gridTop NinetyercentSize grid-2row-top container-border">
           
@@ -50,7 +50,7 @@
         </div>
         <div class="gridTop NinetyercentSize grid-2row-top container-border">
             <h1 style="margin-top: 0.3vh;">Estudiantes Matriculados</h1>
-            <div class="accordion" id="accordionExample" style="margin-top: 10vh;">
+            <div class="accordion" id="accordionExample" >
                 <div *ngFor="let curso of cursosCompletos; trackBy: trackById" class="accordion-item">
                     <h2 class="accordion-header" [id]="'heading' + curso.id">
                         <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"

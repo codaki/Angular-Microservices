@@ -15,7 +15,8 @@ declare const bootstrap: any;
 })
 export class EstudiantesPageComponent implements OnInit {
   @ViewChild('userModal') usuarioModal?: ElementRef;
-  @ViewChild('alertContainer') alertContainer!: ElementRef;
+  @ViewChild('alertModal') alertModal!: ElementRef;
+  @ViewChild('alertPagina') alertPagina!: ElementRef;
   usuarios: IUsuario[] = [];
   usuario: CUsuario = new CUsuario();
   usuarioId: number = 0;
@@ -45,12 +46,12 @@ export class EstudiantesPageComponent implements OnInit {
   deleteUsuario(idUsario: number) {
     this.masterService.deleteUsuario(idUsario).subscribe({
       next: () => {
-        this.showBootstrapAlert('success', 'Usuario eliminado');
+        this.showBootstrapAlertPagina('success', 'Usuario eliminado');
         this.loadUsuarios();
       },
       error: (err) => {
         console.error('Error al eliminar usuario:', err);
-        this.showBootstrapAlert('danger', 'Error al eliminar usuario.');
+        this.showBootstrapAlertPagina('danger', 'Error al eliminar usuario.');
       }
     });
   }
@@ -78,14 +79,26 @@ export class EstudiantesPageComponent implements OnInit {
     alertDiv.setAttribute('role', 'alert');
     alertDiv.textContent = message;
 
-    // Agrega la alerta al contenedor obtenido con ViewChild
-    this.alertContainer.nativeElement.innerHTML = ''; // Limpia el contenedor antes de agregar la nueva alerta
-    this.alertContainer.nativeElement.appendChild(alertDiv);
+    this.alertModal.nativeElement.innerHTML = ''; 
+    this.alertModal.nativeElement.appendChild(alertDiv);
 
-    // Cierra automáticamente la alerta después de 5 segundos
     setTimeout(() => {
-      this.alertContainer.nativeElement.innerHTML = '';
-    }, 5000);  // Cambia el tiempo según tus necesidades
+      this.alertModal.nativeElement.innerHTML = '';
+    }, 5000); 
+  }
+
+  showBootstrapAlertPagina(type: string, message: string) {
+    const alertDiv = document.createElement('div');
+    alertDiv.classList.add('alert', `alert-${type}`);
+    alertDiv.setAttribute('role', 'alert');
+    alertDiv.textContent = message;
+
+    this.alertPagina.nativeElement.innerHTML = ''; 
+    this.alertPagina.nativeElement.appendChild(alertDiv);
+
+    setTimeout(() => {
+      this.alertPagina.nativeElement.innerHTML = '';
+    }, 5000);
   }
 
   closeModal() {

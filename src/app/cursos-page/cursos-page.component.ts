@@ -15,6 +15,8 @@ declare const bootstrap: any;
 })
 export class CursosPageComponent implements OnInit {
   @ViewChild('cursoModal') cursoModal?: ElementRef;
+  @ViewChild('alertModal') alertModal!: ElementRef;
+  @ViewChild('alertPagina') alertPagina!: ElementRef;
   cursos: ICurso[] = [];
   curso: CCurso = new CCurso();
   cursoId: number = 0;
@@ -44,12 +46,12 @@ export class CursosPageComponent implements OnInit {
   deleteCurso(idCurso: number) {
     this.masterService.deleteCurso(idCurso).subscribe({
       next: () => {
-        alert('Curso eliminado');
+        this.showBootstrapAlertPagina('succes', 'Curso eliminado.');
         this.loadCursos();
       },
       error: (err) => {
+        this.showBootstrapAlertPagina('danger', 'Error al eliminar curso.');
         console.error('Error al eliminar curso:', err);
-        alert('Error al eliminar curso.');
       }
     });
   }
@@ -69,6 +71,38 @@ export class CursosPageComponent implements OnInit {
   onUpdateCurso(curso: CCurso, id: number) {
     this.curso = curso;
     this.cursoId = id;
+  }
+
+  showBootstrapAlert(type: string, message: string) {
+    const alertDiv = document.createElement('div');
+    alertDiv.classList.add('alert', `alert-${type}`);
+    alertDiv.setAttribute('role', 'alert');
+    alertDiv.textContent = message;
+
+    // Agrega la alerta al contenedor obtenido con ViewChild
+    this.alertModal.nativeElement.innerHTML = ''; // Limpia el contenedor antes de agregar la nueva alerta
+    this.alertModal.nativeElement.appendChild(alertDiv);
+
+    // Cierra automáticamente la alerta después de 5 segundos
+    setTimeout(() => {
+      this.alertModal.nativeElement.innerHTML = '';
+    }, 5000);  // Cambia el tiempo según tus necesidades
+  }
+
+  showBootstrapAlertPagina(type: string, message: string) {
+    const alertDiv = document.createElement('div');
+    alertDiv.classList.add('alert', `alert-${type}`);
+    alertDiv.setAttribute('role', 'alert');
+    alertDiv.textContent = message;
+
+    // Agrega la alerta al contenedor obtenido con ViewChild
+    this.alertPagina.nativeElement.innerHTML = ''; // Limpia el contenedor antes de agregar la nueva alerta
+    this.alertPagina.nativeElement.appendChild(alertDiv);
+
+    // Cierra automáticamente la alerta después de 5 segundos
+    setTimeout(() => {
+      this.alertPagina.nativeElement.innerHTML = '';
+    }, 5000);  // Cambia el tiempo según tus necesidades
   }
 
   closeModal() {
