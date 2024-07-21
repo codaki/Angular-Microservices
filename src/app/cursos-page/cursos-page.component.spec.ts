@@ -1,4 +1,3 @@
-/// <reference types="jasmine" />
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import {
   ComponentFixture,
@@ -87,6 +86,18 @@ describe('CursosPageComponent', () => {
     );
   }));
 
+  // it('should delete curso successfully', fakeAsync(() => {
+  //   const cursoId = 1;
+  //   masterServiceSpy.deleteCurso.and.returnValue(of(null));
+  //   spyOn(component, 'loadCursos');
+
+  //   component.deleteCurso(cursoId);
+  //   tick();
+
+  //   expect(masterServiceSpy.deleteCurso).toHaveBeenCalledWith(cursoId);
+  //   expect(component.loadCursos).toHaveBeenCalled();
+  // }));
+
   it('should handle error when deleting curso', fakeAsync(() => {
     const cursoId = 1;
     masterServiceSpy.deleteCurso.and.returnValue(
@@ -146,4 +157,31 @@ describe('CursosPageComponent', () => {
     expect(component.curso).toEqual(mockCurso);
     expect(component.cursoId).toBe(mockId);
   });
+
+  // it('should close modal and reset curso and cursoId', () => {
+  //   const mockElement = document.createElement('div');
+  //   mockElement.classList.add('show');
+  //   mockElement.setAttribute('aria-hidden', 'false');
+  //   mockElement.setAttribute('style', 'display: block');
+  //   component.cursoModal = { nativeElement: mockElement } as ElementRef;
+
+  //   document.body.classList.add('modal-open');
+  //   const backdrop = document.createElement('div');
+  //   backdrop.classList.add('modal-backdrop');
+  //   document.body.appendChild(backdrop);
+
+  //   component.curso = new CCurso();
+  //   component.curso.nombre = 'Test';
+  //   component.cursoId = 1;
+
+  //   component.closeModal();
+
+  //   expect(mockElement.classList.contains('show')).toBeFalse();
+  //   expect(mockElement.getAttribute('aria-hidden')).toBe('true');
+  //   expect(mockElement.getAttribute('style')).toBe('display: none');
+  //   expect(document.body.classList.contains('modal-open')).toBeFalse();
+  //   expect(document.querySelector('.modal-backdrop')).toBeNull();
+  //   expect(component.curso).toEqual(new CCurso());
+  //   expect(component.cursoId).toBe(0);
+  // });
 });
