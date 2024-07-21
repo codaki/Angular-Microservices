@@ -1,17 +1,29 @@
-<div>
-    <div class="gridCentrao pageSize grid-2col-equal">
-        <div class="gridTop NinetyercentSize grid-2row-top">
-            <a class="pill" href="/" rel="noopener">
-                <span>Regresar</span>
-                <svg xmlns="http://www.w3.org/2000/svg" height="14" viewBox="0 -960 960 960" width="14"
-                    fill="currentColor">
-                    <path
-                        d="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h280v80H200v560h560v-280h80v280q0 33-23.5 56.5T760-120H200Zm188-212-56-56 372-372H560v-80h280v280h-80v-144L388-332Z" />
-                </svg>
-            </a>
+<div class="container-todo">
+    <div class=" container-inicio px-4 border p-3 shadow ">
+        <div class="">
+            <button type="button" class="btn">
+                <a class="pill" href="/" rel="noopener">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="#c56525"
+                        class="bi bi-arrow-left-circle-fill" viewBox="0 0 16 16">
+                        <path
+                            d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0m3.5 7.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5z" />
+                    </svg>
+                </a>
+            </button>
+        </div>
+        <div class="col-sm">
+            <h3>Gestión de Matrículas</h3>
+        </div>
+
+    </div>
+    <br>
+    <div class="gridCentrao pageSize grid-2col-equal container-todo">
+        
+        <div class="gridTop NinetyercentSize grid-2row-top container-border">
+          
             <div>
-                <h1>Cursos</h1>
-                <table class="table table-dark table-striped">
+                <h1>Matricular a un Curso</h1>
+                <table class="table caption-top">
                     <thead>
                         <tr>
                             <th scope="col">ID</th>
@@ -25,7 +37,7 @@
                             <td>{{ item.id }}</td>
                             <td>{{ item.nombre }}</td>
                             <td>
-                                <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                <button type="button" class="btn btn-color-border" data-bs-toggle="modal"
                                     data-bs-target="#cursoModal" (click)="onUpdateCurso(item, item.id)">
                                     Matricular
                                 </button>
@@ -36,9 +48,9 @@
                 </table>
             </div>
         </div>
-        <div class="gridTop NinetyercentSize grid-2row-top">
-            <h1 style="margin-top: 4.1vh;">Estudiantes Matriculados</h1>
-            <div class="accordion" id="accordionExample" style="margin-top: 6vh;">
+        <div class="gridTop NinetyercentSize grid-2row-top container-border">
+            <h1 style="margin-top: 0.3vh;">Estudiantes Matriculados</h1>
+            <div class="accordion" id="accordionExample" style="margin-top: 10vh;">
                 <div *ngFor="let curso of cursosCompletos; trackBy: trackById" class="accordion-item">
                     <h2 class="accordion-header" [id]="'heading' + curso.id">
                         <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
@@ -52,9 +64,10 @@
                         <div class="accordion-body">
                             <div *ngIf="curso.cursoUsuarios.length === 0" class="gridCentrao grid-2col-equal">
                                 <p>No hay estudiantes registrados.</p>
+                                <br>
                                 <div class="gridCentrao">
                                     <p>Registre ahora:</p>
-                                    <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                    <button type="button" class="btn btn-color" data-bs-toggle="modal"
                                         data-bs-target="#cursoModal" (click)="onUpdateCurso(curso, curso.id)">
                                         Matricular
                                     </button>
@@ -64,7 +77,7 @@
                                 <div class="gridCentrao grid-3col-equal">
                                     <p>Usuario ID: {{ cursoUsuario.usuarioId }}</p>
                                     <p>Nombre: {{ getUsuarioNombre(cursoUsuario.usuarioId) }}</p>
-                                    <button type="button" class="btn btn-primary"
+                                    <button type="button" class="btn btn-color"
                                         (click)="desmatricularEstudiante(cursoUsuario.usuarioId, curso.id)">
                                         Desmatricular
                                     </button>

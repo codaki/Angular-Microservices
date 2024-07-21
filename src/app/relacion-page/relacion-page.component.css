@@ -35,3 +35,35 @@
 .grid-3col-equal {
     grid-template-columns: 33% 33% 33%;
 }
+
+.btn-color {
+    background-color: #359988;
+    color: azure;
+}
+
+.container-border{
+    border-style: double;
+    border-color: #359988; 
+    border-width: 2px; 
+    padding:2vw;
+}
+.btn-color-border{
+    border-style: double;
+    border-color: #359988; 
+    border-width: 2px; 
+}
+
+.container-todo {
+    width: 80vw;
+}
+
+.container-inicio {
+    display: grid;
+    grid-template-columns: 10% 40%;
+    align-items: end;
+}
+
+.modal-dialog{
+    background-color: white;
+    border-radius: 8;
+}
