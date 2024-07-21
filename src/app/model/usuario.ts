@@ -16,8 +16,20 @@ export class CUsuario {
     this.password = '';
   }
 }
-
 export interface ICurso {
+  id: number;
+  nombre: string;
+}
+
+export class CCurso{
+  nombre: string;
+
+  constructor() {
+    this.nombre = '';
+  }
+}
+
+/*export interface ICurso {
   id: number;
   usuarioId: number;
 }
@@ -26,4 +38,4 @@ export interface ICursoUsuario {
   id: number;
   nombre: string;
   cursoUsuario: ICurso[];
-}
+}*/

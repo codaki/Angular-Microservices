@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { ICursoUsuario, IUsuario, CUsuario } from '../model/usuario';
+import { /*ICursoUsuario,*/ IUsuario, CUsuario, ICurso,CCurso } from '../model/usuario';
 
 @Injectable({
   providedIn: 'root',
@@ -11,8 +11,17 @@ export class MasterService {
   apiUrlCurso: string = 'http://localhost:8002/';
   constructor(private http: HttpClient) { }
 
-  getCursos(): Observable<ICursoUsuario[]> {
-    return this.http.get<ICursoUsuario[]>(this.apiUrlCurso + 'getCursos');
+  getCursos(): Observable<ICurso[]> {
+    return this.http.get<ICurso[]>(this.apiUrlCurso + 'getCursos');
+  }
+  addCurso(curso: CCurso): Observable<CCurso> {
+    return this.http.post<CCurso>(this.apiUrlCurso + 'saveCurso', curso);
+  }
+  deleteCurso(id: number): Observable<ICurso> {
+    return this.http.delete<ICurso>(this.apiUrlCurso + 'eliminarCurso/' + id);
+  }
+  updateCurso(curso: CCurso, id: number): Observable<CCurso> {
+    return this.http.put<CCurso>(this.apiUrlCurso + 'modificarCurso/' + id, curso);
   }
   getUsuarios(): Observable<IUsuario[]> {
     return this.http.get<IUsuario[]>(this.apiUrlUsuario + 'getUsers');
