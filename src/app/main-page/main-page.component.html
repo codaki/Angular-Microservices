@@ -1,6 +1,3 @@
-<!doctype html>
-<html lang="en">
-
 <head>
     <meta charset="utf-8">
     <title>Matrícula Escolar</title>
@@ -38,7 +35,6 @@
             font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
                 Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
                 "Segoe UI Symbol";
-            box-sizing: border-box;
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
         }
@@ -51,25 +47,43 @@
             flex-direction: column;
         }
 
-        header {
-            background-color: rgb(29, 28, 28);
-            padding: 1rem;
-            color: white;
-            width: 100%;
-            position: relative;
-            border-bottom: 2px solid var(--bright-blue);
+        /* Asegurarse de que el contenedor principal ocupe todo el ancho */
+        .main-container {
+            width: 100vw;
+            height: 30vh;
+            /* Usar 100vw para asegurarse de que cubra toda la ventana */
+            margin: 0;
+            padding: 0;
         }
 
+        /* Estilos para el header */
+        header {
+            padding-top: 10vh;
+            background-color: rgb(240, 207, 20);
+            padding: 1rem;
+            color: rgb(0, 0, 0);
+            width: 99.999vw;
+            /* Usar 100vw para asegurarse de que cubra toda la ventana */
+            position: relative;
+            border-bottom: 2px solid var(--bright-blue);
+            margin: 0;
+            /* Eliminar margen */
+        }
+
+        /* Asegurarse de que el contenedor del header ocupe todo el ancho */
         header .container {
+            
             display: flex;
             align-items: center;
             justify-content: space-between;
-            max-width: 100%;
+            width: 100%;
+            color: #ffffff;
+            /* Ajustar el ancho al 100% */
             margin: 0 auto;
         }
 
         .img2 {
-            max-width: 10%;
+            max-width: 12%;
             height: auto;
         }
 
@@ -79,7 +93,7 @@
         }
 
         .header-nav a {
-            color: white;
+            color: rgb(0, 0, 0);
             text-decoration: none;
             margin-left: 1rem;
             font-weight: bold;
@@ -92,7 +106,7 @@
         h1 {
             margin: 0;
             font-size: 2rem;
-            color: white;
+            color: rgb(0, 0, 0);
             text-align: center;
             flex: 1;
         }
@@ -101,7 +115,7 @@
             flex: 1;
             display: flex;
             padding: 1rem;
-            box-sizing: inherit;
+            box-sizing: border-box;
         }
 
         .content {
@@ -117,7 +131,7 @@
         }
 
         .col-md-3 .list-group a:hover {
-            background-color:rgb(57, 90, 240);
+            background-color: rgb(31, 49, 129);
             color: white;
         }
 
@@ -134,12 +148,16 @@
 
         footer {
             background-color: var(--gray-900);
-            color: #fff;
+            color: #ffffff;
             padding: 1rem;
             text-align: center;
-            width: 100%;
+            width: 99.999vw;
+            height: 20%;
+
             position: relative;
             border-top: 2px solid var(--bright-blue);
+            margin: 0;
+            /* Eliminar margen */
         }
 
         .footer-links {
@@ -157,21 +175,18 @@
         .footer-links a:hover {
             text-decoration: underline;
         }
-
-        @media screen and (max-width: 650px) {
-            .content {
-                flex-direction: column;
-                width: 100%;
-            }
-
-            .divider {
-                height: 1px;
-                width: 100%;
-                background: var(--red-to-pink-to-purple-horizontal-gradient);
-                margin-block: 1.5rem;
-            }
-        }
     </style>
+</head>
+
+<head>
+    <meta charset="utf-8">
+    <title>Matrícula Escolar</title>
+    <base href="/">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
 </head>
 
 <body>
@@ -210,7 +225,6 @@
     <footer>
         <div class="container">
             <div class="row">
-
                 <div class="col-md-4">
                     <h5>Contacto</h5>
                     <p><i class="bi bi-geo-alt"></i> Dirección: Ajavi y Cardenal de la torre, Sangolquí, Ecuador</p>
@@ -220,7 +234,6 @@
                 <div class="col-md-4">
                     <h5>Enlaces Útiles</h5>
                     <ul class="list-unstyled">
-
                         <li><a href="#">Términos de Servicio</a></li>
                         <li><a href="#">Soporte</a></li>
                     </ul>
@@ -233,13 +246,9 @@
                     <a href="#"><i class="bi bi-instagram"></i></a>
                 </div>
             </div>
-            <hr class="my-4">
-            <div class="text-center">
-                <p class="mb-0">© 2024 Colegio Manitas del Saber. Todos los derechos reservados.</p>
-            </div>
+
         </div>
     </footer>
-
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
         integrity="sha384-oBqDVmMz4fnFO9PTFJpBFCtJZP/0Gx8bO5b2gIoC7q4x4YV0Z95fR6zFq6uK5qX3"
@@ -248,5 +257,3 @@
         integrity="sha384-FTXlA4VIwLr6E6z6E5sh2s/lK6VXZgFrV2AsE/sI+E3j6u6gI8K8I7f5nH4CxT6S"
         crossorigin="anonymous"></script>
 </body>
-
-</html>
