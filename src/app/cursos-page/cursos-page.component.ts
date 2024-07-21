@@ -4,6 +4,8 @@ import { MasterService } from '../Service/master.service';
 import { IUsuario, CUsuario, ICurso, CCurso } from '../model/usuario';
 import { FormsModule } from '@angular/forms';
 
+declare const bootstrap: any;
+
 @Component({
   selector: 'app-cursos-page',
   standalone: true,
@@ -24,14 +26,12 @@ export class CursosPageComponent implements OnInit {
   masterService = inject(MasterService);
   loadCursos() {
     this.masterService.getCursos().subscribe((res: ICurso[]) => {
-      console.log(res);
       this.cursos = res;
     });
   }
   addCurso() {
     this.masterService.addCurso(this.curso).subscribe({
       next: (res: CCurso) => {
-        console.log(res);
         this.loadCursos();
         this.closeModal();
       },
@@ -44,7 +44,7 @@ export class CursosPageComponent implements OnInit {
   deleteCurso(idCurso: number) {
     this.masterService.deleteCurso(idCurso).subscribe({
       next: () => {
-        console.log("Curso eliminado");
+        alert('Curso eliminado');
         this.loadCursos();
       },
       error: (err) => {
@@ -56,7 +56,6 @@ export class CursosPageComponent implements OnInit {
   updateCurso() {
     this.masterService.updateCurso(this.curso, this.cursoId).subscribe({
       next: (res: CCurso) => {
-        console.log(res);
         this.loadCursos();
         this.closeModal();
       },
@@ -74,11 +73,13 @@ export class CursosPageComponent implements OnInit {
 
   closeModal() {
     if (this.cursoModal) {
-      (this.cursoModal.nativeElement as HTMLElement).classList.remove('show');
-      (this.cursoModal.nativeElement as HTMLElement).setAttribute('aria-hidden', 'true');
-      (this.cursoModal.nativeElement as HTMLElement).setAttribute('style', 'display: none');
-      document.body.classList.remove('modal-open');
-      document.body.removeChild(document.querySelector('.modal-backdrop')!);
+      const modalElement = this.cursoModal?.nativeElement;
+      if (modalElement) {
+        const modalInstance = bootstrap.Modal.getInstance(modalElement);
+        if (modalInstance) {
+          modalInstance.hide();
+        }
+      }
 
       this.curso = new CCurso();
       this.cursoId = 0;

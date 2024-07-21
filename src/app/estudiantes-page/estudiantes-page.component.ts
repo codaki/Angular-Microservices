@@ -4,6 +4,8 @@ import { MasterService } from '../Service/master.service';
 import { IUsuario, CUsuario } from '../model/usuario';
 import { FormsModule } from '@angular/forms';
 
+declare const bootstrap: any;
+
 @Component({
   selector: 'app-estudiantes-page',
   standalone: true,
@@ -24,14 +26,12 @@ export class EstudiantesPageComponent implements OnInit {
   masterService = inject(MasterService);
   loadUsuarios() {
     this.masterService.getUsuarios().subscribe((res: IUsuario[]) => {
-      console.log(res);
       this.usuarios = res;
     });
   }
   addUsuario() {
     this.masterService.addUsuario(this.usuario).subscribe({
       next: (res: CUsuario) => {
-        console.log(res);
         this.loadUsuarios();
         this.closeModal();
       },
@@ -44,7 +44,7 @@ export class EstudiantesPageComponent implements OnInit {
   deleteUsuario(idUsario: number) {
     this.masterService.deleteUsuario(idUsario).subscribe({
       next: () => {
-        console.log('Usuario eliminado');
+        alert('Usuario eliminado');
         this.loadUsuarios();
       },
       error: (err) => {
@@ -56,7 +56,6 @@ export class EstudiantesPageComponent implements OnInit {
   updateUsuario() {
     this.masterService.updateUsuario(this.usuario, this.usuarioId).subscribe({
       next: (res: CUsuario) => {
-        console.log(res);
         this.loadUsuarios();
         this.closeModal();
       },
@@ -74,11 +73,13 @@ export class EstudiantesPageComponent implements OnInit {
 
   closeModal() {
     if (this.usuarioModal) {
-      (this.usuarioModal.nativeElement as HTMLElement).classList.remove('show');
-      (this.usuarioModal.nativeElement as HTMLElement).setAttribute('aria-hidden', 'true');
-      (this.usuarioModal.nativeElement as HTMLElement).setAttribute('style', 'display: none');
-      document.body.classList.remove('modal-open');
-      document.body.removeChild(document.querySelector('.modal-backdrop')!);
+      const modalElement = this.usuarioModal?.nativeElement;
+      if (modalElement) {
+        const modalInstance = bootstrap.Modal.getInstance(modalElement);
+        if (modalInstance) {
+          modalInstance.hide();
+        }
+      }
 
       this.usuario = new CUsuario();
       this.usuarioId = 0;
