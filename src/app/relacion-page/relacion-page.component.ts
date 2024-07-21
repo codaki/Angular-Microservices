@@ -139,4 +139,25 @@ export class RelacionPageComponent implements OnInit {
       );
     }
   }
+
+  desmatricularEstudiante(estudianteId: number, cursoId: number): void {
+    const usuario = this.usuarios.find(e => e.id === estudianteId);
+    console.log(usuario);
+    if (usuario) {
+      this.masterService.desasignarUsuario(cursoId, usuario).subscribe({
+        next: (res) => {
+          console.log(res);
+          this.loadCursos();
+          this.loadEstudiantes();
+          this.loadUsuarios();
+          this.loadCursosCompletos();
+        },
+        error: (err) => {
+          console.error('Error al desmatricular estudiante:', err);
+          alert('Ocurrió un error al desmatricular el estudiante. Por favor, inténtelo de nuevo.');
+        }
+      }
+      );
+    }
+  }
 }

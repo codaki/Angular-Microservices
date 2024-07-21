@@ -32,6 +32,15 @@ export class MasterService {
     });
   }
 
+  desasignarUsuario(idCurso: number, usuario: IUsuario): Observable<any> {
+    const url = `${this.apiUrlCurso}eliminarUsuario/${idCurso}`;
+    return this.http.put<any>(url, usuario, {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    });
+  }
+
   getCursosCompletos(): Observable<ICursoCompleto[]> {
     return this.http.get<ICursoCompleto[]>(this.apiUrlCurso + 'getCursos');
   }

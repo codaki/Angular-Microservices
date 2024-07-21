@@ -40,6 +40,10 @@
                         <p>relacion</p>
                         <p>{{ item1.usuarioId }}</p>
                         <p>{{ getUsuarioNombre(item1.usuarioId) }}</p>
+                        <button type="button" class="btn btn-primary"
+                            (click)="desmatricularEstudiante(item1.usuarioId, item.id)">
+                            Desmatricular
+                        </button>
                     </ng-container>
                 </td>
             </tr>
