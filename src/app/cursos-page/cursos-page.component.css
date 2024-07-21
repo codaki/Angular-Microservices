@@ -1,0 +1,25 @@
+.btn-color {
+    background-color: #c56525;
+    color: azure;
+}
+
+.btn-color-border{
+    border-style: double;
+    border-color: #532b11; 
+    border-width: 2px; 
+}
+
+.container-todo {
+    width: 80vw;
+}
+
+.container-inicio {
+    display: grid;
+    grid-template-columns: 10% 40%;
+    align-items: end;
+}
+
+.modal-dialog{
+    background-color: white;
+    border-radius: 8;
+}

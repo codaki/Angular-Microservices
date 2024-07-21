@@ -44,8 +44,8 @@ export class MasterService {
   getCursosCompletos(): Observable<ICursoCompleto[]> {
     return this.http.get<ICursoCompleto[]>(this.apiUrlCurso + 'getCursos');
   }
-  getUsuariosNoMatriculados(): Observable<IUsuario[]> {
-    return this.http.get<IUsuario[]>(this.apiUrlCurso + 'usuarioIds');
+  getUsuariosNoMatriculados(idCurso: number): Observable<IUsuario[]> {
+    return this.http.get<IUsuario[]>(this.apiUrlCurso + 'usuarioIds/' + idCurso);
   }
   getUsuarios(): Observable<IUsuario[]> {
     return this.http.get<IUsuario[]>(this.apiUrlUsuario + 'getUsers');
