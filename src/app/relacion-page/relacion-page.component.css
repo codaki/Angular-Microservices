@@ -5,11 +5,10 @@
 
 .grid{
     display: grid;
-
 }
 
 .pageSize {
-    height: 95vh;
+    height: 80vh;
     width: 98vw;
 }
 
@@ -37,24 +36,28 @@
     grid-template-columns: 50% 50%;
 }
 
+.grid-2row-equal {
+    grid-template-rows: 50% 50%;
+}
+
 .grid-3col-equal {
     grid-template-columns: 33% 33% 33%;
 }
 
 .btn-color {
-    background-color: #359988;
+    background-color: #1f6cac;
     color: azure;
 }
 
 .container-border{
     border-style: double;
-    border-color: #359988; 
+    border-color: #134d7c; 
     border-width: 2px; 
     padding:2vw;
 }
 .btn-color-border{
     border-style: double;
-    border-color: #359988; 
+    border-color: #134d7c; 
     border-width: 2px; 
 }
 
@@ -71,4 +74,11 @@
 .modal-dialog{
     background-color: white;
     border-radius: 8;
+}
+
+.container-matriculado{
+    border-style: double;
+    border-color: #939e9c; 
+    border-width: 0.3px; 
+    margin-bottom: 1vw;
 }

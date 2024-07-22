@@ -39,7 +39,7 @@ export class CursosPageComponent implements OnInit {
       },
       error: (err) => {
         console.error('Error al añadir curso:', err);
-        alert('Ocurrió un error al añadir el curso. Por favor, verifique que el nombre del curso no exista e inténtelo de nuevo.');
+        this.showBootstrapAlert('danger', 'Ocurrió un error al añadir el curso. Por favor, verifique que el nombre del curso no exista e inténtelo de nuevo.');
       }
     });
   }
@@ -63,7 +63,7 @@ export class CursosPageComponent implements OnInit {
       },
       error: (err) => {
         console.error('Error al modificar curso:', err);
-        alert('Ocurrió un error al modificar el curso. Por favor, verifique que el nombre del curso no exista e inténtelo de nuevo.');
+        this.showBootstrapAlert('danger', 'Ocurrió un error al modificar el curso. Por favor, verifique que el nombre del curso no exista e inténtelo de nuevo.');
       }
     });
   }
@@ -79,14 +79,12 @@ export class CursosPageComponent implements OnInit {
     alertDiv.setAttribute('role', 'alert');
     alertDiv.textContent = message;
 
-    // Agrega la alerta al contenedor obtenido con ViewChild
-    this.alertModal.nativeElement.innerHTML = ''; // Limpia el contenedor antes de agregar la nueva alerta
+    this.alertModal.nativeElement.innerHTML = ''; 
     this.alertModal.nativeElement.appendChild(alertDiv);
 
-    // Cierra automáticamente la alerta después de 5 segundos
     setTimeout(() => {
       this.alertModal.nativeElement.innerHTML = '';
-    }, 5000);  // Cambia el tiempo según tus necesidades
+    }, 5000); 
   }
 
   showBootstrapAlertPagina(type: string, message: string) {
@@ -95,14 +93,12 @@ export class CursosPageComponent implements OnInit {
     alertDiv.setAttribute('role', 'alert');
     alertDiv.textContent = message;
 
-    // Agrega la alerta al contenedor obtenido con ViewChild
-    this.alertPagina.nativeElement.innerHTML = ''; // Limpia el contenedor antes de agregar la nueva alerta
+    this.alertPagina.nativeElement.innerHTML = '';
     this.alertPagina.nativeElement.appendChild(alertDiv);
 
-    // Cierra automáticamente la alerta después de 5 segundos
     setTimeout(() => {
       this.alertPagina.nativeElement.innerHTML = '';
-    }, 5000);  // Cambia el tiempo según tus necesidades
+    }, 5000); 
   }
 
   closeModal() {
