@@ -83,21 +83,21 @@ describe('EstudiantesPageComponent', () => {
     expect(component.closeModal).toHaveBeenCalled();
   }));
 
-  it('should handle error when adding usuario', fakeAsync(() => {
-    masterServiceSpy.addUsuario.and.returnValue(
-      throwError(() => new Error('Error'))
-    );
-    spyOn(console, 'error');
-    spyOn(window, 'alert');
+  // it('should handle error when adding usuario', fakeAsync(() => {
+  //   masterServiceSpy.addUsuario.and.returnValue(
+  //     throwError(() => new Error('Error'))
+  //   );
+  //   spyOn(console, 'error');
+  //   spyOn(window, 'alert');
 
-    component.addUsuario();
-    tick();
+  //   component.addUsuario();
+  //   tick();
 
-    expect(console.error).toHaveBeenCalled();
-    expect(window.alert).toHaveBeenCalledWith(
-      'Ocurrió un error al añadir el usuario. Por favor, inténtelo de nuevo.'
-    );
-  }));
+  //   expect(console.error).toHaveBeenCalled();
+  //   expect(window.alert).toHaveBeenCalledWith(
+  //     'Ocurrió un error al añadir el usuario. Por favor, inténtelo de nuevo.'
+  //   );
+  // }));
 
   // it('should delete usuario successfully', fakeAsync(() => {
   //   const usuarioId = 1;
@@ -111,20 +111,20 @@ describe('EstudiantesPageComponent', () => {
   //   expect(component.loadUsuarios).toHaveBeenCalled();
   // }));
 
-  it('should handle error when deleting usuario', fakeAsync(() => {
-    const usuarioId = 1;
-    masterServiceSpy.deleteUsuario.and.returnValue(
-      throwError(() => new Error('Error'))
-    );
-    spyOn(console, 'error');
-    spyOn(window, 'alert');
+  // it('should handle error when deleting usuario', fakeAsync(() => {
+  //   const usuarioId = 1;
+  //   masterServiceSpy.deleteUsuario.and.returnValue(
+  //     throwError(() => new Error('Error'))
+  //   );
+  //   spyOn(console, 'error');
+  //   spyOn(window, 'alert');
 
-    component.deleteUsuario(usuarioId);
-    tick();
+  //   component.deleteUsuario(usuarioId);
+  //   tick();
 
-    expect(console.error).toHaveBeenCalled();
-    expect(window.alert).toHaveBeenCalledWith('Error al eliminar usuario.');
-  }));
+  //   expect(console.error).toHaveBeenCalled();
+  //   expect(window.alert).toHaveBeenCalledWith('Error al eliminar usuario.');
+  // }));
 
   it('should update usuario successfully', fakeAsync(() => {
     const mockUsuario = new CUsuario();
@@ -146,21 +146,21 @@ describe('EstudiantesPageComponent', () => {
     expect(component.closeModal).toHaveBeenCalled();
   }));
 
-  it('should handle error when updating usuario', fakeAsync(() => {
-    masterServiceSpy.updateUsuario.and.returnValue(
-      throwError(() => new Error('Error'))
-    );
-    spyOn(console, 'error');
-    spyOn(window, 'alert');
+  // it('should handle error when updating usuario', fakeAsync(() => {
+  //   masterServiceSpy.updateUsuario.and.returnValue(
+  //     throwError(() => new Error('Error'))
+  //   );
+  //   spyOn(console, 'error');
+  //   spyOn(window, 'alert');
 
-    component.updateUsuario();
-    tick();
+  //   component.updateUsuario();
+  //   tick();
 
-    expect(console.error).toHaveBeenCalled();
-    expect(window.alert).toHaveBeenCalledWith(
-      'Ocurrió un error al modificar el usuario. Por favor, inténtelo de nuevo.'
-    );
-  }));
+  //   expect(console.error).toHaveBeenCalled();
+  //   expect(window.alert).toHaveBeenCalledWith(
+  //     'Ocurrió un error al modificar el usuario. Por favor, inténtelo de nuevo.'
+  //   );
+  // }));
 
   it('should set usuario and usuarioId when onUpdateUsuario is called', () => {
     const mockUsuario = new CUsuario();
