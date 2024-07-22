@@ -11,6 +11,14 @@
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Kalnia+Glaze:wght@100..700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Kalnia+Glaze:wght@100..700&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap"
+        rel="stylesheet">
 
     <style>
         :host {
@@ -35,7 +43,7 @@
                     var(--vivid-pink) 50%,
                     var(--electric-violet) 100%);
 
-            --pill-accent: var(--bright-blue);
+            --pill-accent: var(--electric-violet);
 
             font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
                 Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
@@ -46,7 +54,8 @@
 
         body {
             margin: 0;
-            padding: 1rem;
+            padding: 2rem;
+
             height: 100%;
             display: flex;
             flex-direction: column;
@@ -57,10 +66,11 @@
             top: 0;
             left: 0;
             right: 0;
-            background-color: rgb(240, 207, 20);
+            padding: 2rem;
+            background-color: rgb(26, 26, 26);
             padding: 1rem;
-            color: rgb(0, 0, 0);
-            border-bottom: 2px solid var(--bright-blue);
+            color: rgb(255, 255, 255);
+            border-bottom: 2px solid var(--french-violet);
             z-index: 1000;
         }
 
@@ -73,7 +83,7 @@
         }
 
         .img2 {
-            max-width: 12%;
+            max-width: 7%;
             height: auto;
         }
 
@@ -83,7 +93,7 @@
         }
 
         .header-nav a {
-            color: rgb(0, 0, 0);
+            color: rgb(233, 233, 233);
             text-decoration: none;
             margin-left: 1rem;
             font-weight: bold;
@@ -97,11 +107,13 @@
         h1 {
             margin: 0;
             font-size: 2rem;
-            color: rgb(0, 0, 0);
+            color: rgb(241, 241, 241);
             text-align: center;
             flex: 1;
             font-family: 'Montserrat', sans-serif;
         }
+
+        h3 {}
 
         main {
             flex: 1;
@@ -114,6 +126,7 @@
         }
 
         .content {
+            padding-top: 3rem;
             display: flex;
             flex-direction: row;
             justify-content: space-between;
@@ -128,8 +141,7 @@
         }
 
         .col-md-3 .list-group a:hover {
-            font-family: 'Montserrat', sans-serif;
-            background-color: rgb(31, 49, 129);
+            background-color: rgb(153, 29, 224);
             color: white;
         }
 
@@ -140,10 +152,11 @@
         }
 
         .img-fluid {
-            max-width: 30%;
+            max-width: 100%;
             height: auto;
         }
-        p{
+
+        p {
             font-family: 'Montserrat', sans-serif;
         }
 
@@ -156,7 +169,7 @@
             color: #ffffff;
             padding: 1rem;
             text-align: center;
-            border-top: 2px solid var(--bright-blue);
+            border-top: 2px solid var(--electric-violet);
             z-index: 1000;
         }
 
@@ -165,6 +178,57 @@
             justify-content: center;
             gap: 1rem;
         }
+
+        .info-text {
+            font-family: 'lato', sans-serif;
+            font-size: 1.1rem;
+            color: #333;
+        }
+
+        .info-card {
+            background-color: #f8f9fa;
+            /* Fondo claro */
+            border: 1px solid #e9ecef;
+            /* Borde ligero */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            /* Sombra sutil */
+        }
+
+        .info-card .info-text {
+            font-size: 1rem;
+            /* Tamaño de fuente para el texto */
+            line-height: 1.6;
+            /* Espaciado entre líneas */
+            color: #333;
+            /* Color del texto */
+        }
+
+        .info-card img {
+            max-width: 100%;
+            /* Asegura que la imagen no desborde su contenedor */
+            height: auto;
+            /* Mantiene la proporción de la imagen */
+        }
+
+        .registration-card {
+            background-color: #f8f9fa;
+            /* Fondo claro */
+            border: 1px solid #e9ecef;
+            /* Borde ligero */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            /* Sombra sutil */
+        }
+
+        .registration-card .btn-primary {
+            background-color: #007bff;
+            /* Color del botón */
+            border-color: #007bff;
+            /* Borde del botón */
+        }
+
+
+
+
 
         .footer-links a {
             color: white;
@@ -175,71 +239,88 @@
         .footer-links a:hover {
             text-decoration: underline;
         }
+
+        @media (max-width: 768px) {
+            .content {
+                flex-direction: column;
+            }
+        }
     </style>
 </head>
 
 <body>
     <header>
         <div class="container">
-            <img src="./assets/logo2.png" alt="Descripción de la imagen" class="img2">
+            <img src="./assets/logo3.png" alt="Descripción de la imagen" class="img2">
             <h1>Sistema de Matrícula Escolar</h1>
             <div class="header-nav">
-                <a href="#">Inicio</a>
-                <a href="#">Servicios</a>
-                <a href="#">Contacto</a>
+                <a href="https://www.youtube.com/channel/UC3cEGKhg3OERn-ihVsJcb7A">Youtube</a>
+                <a href="https://angular-university.io/my-courses">Cursos</a>
+                <a href="https://angular-university.io/feedback">Contacto</a>
             </div>
         </div>
     </header>
 
     <main>
         <div class="container-fluid">
-            <div class="row">
-                <div class="col-md-3">
-                    <div class="list-group">
-                        <a class="list-group-item list-group-item-action" href="/usuarios">Usuarios</a>
-                        <a class="list-group-item list-group-item-action" href="/cursos">Cursos</a>
-                        <a class="list-group-item list-group-item-action" href="/relacion">Relación</a>
+            <div class="row content">
+                <div class="col-md-3 ">
+                    <div class="registration-card p-3 bg-light rounded shadow-sm">
+                        <h3 class="text-center mb-4">Matricúlate aquí</h3>
+                        <div class="text-center mb-4">
+                            <p class="lead">¡No pierdas la oportunidad de avanzar en tu carrera con nuestro curso de
+                                Angular! Inscríbete ahora y comienza tu camino hacia el éxito en el desarrollo web.</p>
+                        </div>
+                        <div class="list-group">
+                            <a class="list-group-item list-group-item-action" href="/usuarios">Usuarios</a>
+                            <a class="list-group-item list-group-item-action" href="/cursos">Cursos</a>
+                            <a class="list-group-item list-group-item-action" href="/relacion">Relación</a>
+                        </div>
                     </div>
                 </div>
-                <div class="col-md-9">
-                    <div class="text-center">
-                        <img src="./assets/pp2.png" alt="Descripción de la imagen" class="img-fluid mb-4">
-                        <p >Por favor, seleccione una opción del menú a la izquierda para comenzar.</p>
+
+                <div class="col-md-6">
+                    <div class="info-card p-4 bg-light rounded shadow-sm">
+                        <h3 class="text-center mb-4">¿Quiénes Somos?</h3>
+                        <div class="row">
+                            <div class="col-md-7">
+                                <p class="info-text">En Angular University, nos especializamos en ofrecer formación de
+                                    vanguardia en Angular, una de las tecnologías de desarrollo web más potentes y
+                                    modernas. Con más de 10 años de experiencia en la educación tecnológica, nuestro
+                                    enfoque está en proporcionar una comprensión profunda de Angular, desde los
+                                    fundamentos hasta técnicas avanzadas. Nuestro objetivo es equipar a nuestros
+                                    estudiantes con las habilidades necesarias para desarrollar aplicaciones web
+                                    robustas y eficientes. Nuestros cursos están diseñados por expertos en la materia y
+                                    están respaldados por una amplia gama de recursos prácticos y proyectos reales que
+                                    fomentan el aprendizaje y la aplicación de conocimientos en entornos de desarrollo
+                                    reales.</p>
+                            </div>
+                            <div class="col-md-5">
+                                <img src="./assets/edifico2.jpg" alt="Descripción de la imagen"
+                                    class="img-fluid rounded">
+                            </div>
+                        </div>
                     </div>
+                </div>
+
+                <div class="col-md-3">
+                    <img src="./assets/aside.jpg" alt="Descripción de la imagen" class="img-fluid mb-4">
                 </div>
             </div>
         </div>
     </main>
-
     <footer>
         <div class="container">
-            <div class="row">
-                <div class="col-md-4">
-                    <h5>Contacto</h5>
-                    <p><i class="bi bi-geo-alt"></i> Dirección: Ajavi y Cardenal de la torre, Sangolquí, Ecuador</p>
-                    <p><i class="bi bi-envelope"></i> Email: grupo4.colegio.com</p>
-                </div>
-                <div class="col-md-4">
-                    <h5>Enlaces Útiles</h5>
-                    <ul class="list-unstyled">
-                        <li><a href="#">Términos de Servicio</a></li>
-                        <li><a href="#">Soporte</a></li>
-                    </ul>
-                </div>
-                <div class="col-md-4">
-                    <h5>Síguenos</h5>
-                    <a href="#" class="me-2"><i class="bi bi-facebook"></i></a>
-                    <a href="#" class="me-2"><i class="bi bi-twitter"></i></a>
-                    <a href="#" class="me-2"><i class="bi bi-linkedin"></i></a>
-                    <a href="#"><i class="bi bi-instagram"></i></a>
-                </div>
-            </div>
-            <hr class="my-4">
-            <div class="text-center">
-                <p class="mb-0">© 2024 Colegio La Salle. Todos los derechos reservados.</p>
-            </div>
+
         </div>
+        <div class="text-center">
+            <p class="mb-0">© 2024 AngularUniversity. Todos los derechos reservados.</p>
+        </div>
+
     </footer>
+
+
+
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
         integrity="sha384-oBqDVmMz4fnFO9PTFJpBFCtJZP/0Gx8bO5b2gIoC7q4x4YV0Z95fR6zFq6uK5qX3"
