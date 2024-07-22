@@ -10,6 +10,8 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap" rel="stylesheet">
+
     <style>
         :host {
             --bright-blue: oklch(51.01% 0.274 263.83);
@@ -38,38 +40,40 @@
             font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
                 Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
                 "Segoe UI Symbol";
-            box-sizing: border-box;
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
         }
 
         body {
             margin: 0;
-            padding: 0;
+            padding: 1rem;
             height: 100%;
             display: flex;
             flex-direction: column;
         }
 
         header {
-            background-color: rgb(29, 28, 28);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background-color: rgb(240, 207, 20);
             padding: 1rem;
-            color: white;
-            width: 100%;
-            position: relative;
+            color: rgb(0, 0, 0);
             border-bottom: 2px solid var(--bright-blue);
+            z-index: 1000;
         }
 
         header .container {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            max-width: 100%;
+            width: 100%;
             margin: 0 auto;
         }
 
         .img2 {
-            max-width: 10%;
+            max-width: 12%;
             height: auto;
         }
 
@@ -79,10 +83,11 @@
         }
 
         .header-nav a {
-            color: white;
+            color: rgb(0, 0, 0);
             text-decoration: none;
             margin-left: 1rem;
             font-weight: bold;
+            font-family: 'Montserrat', sans-serif;
         }
 
         .header-nav a:hover {
@@ -92,16 +97,20 @@
         h1 {
             margin: 0;
             font-size: 2rem;
-            color: white;
+            color: rgb(0, 0, 0);
             text-align: center;
             flex: 1;
+            font-family: 'Montserrat', sans-serif;
         }
 
         main {
             flex: 1;
             display: flex;
             padding: 1rem;
-            box-sizing: inherit;
+            font-family: 'Montserrat', sans-serif;
+            margin-top: 80px;
+            margin-bottom: 80px;
+            box-sizing: border-box;
         }
 
         .content {
@@ -109,15 +118,18 @@
             flex-direction: row;
             justify-content: space-between;
             width: 100%;
+            font-family: 'Montserrat', sans-serif;
         }
 
         .col-md-3 .list-group a {
             text-decoration: none;
             color: #000;
+            font-family: 'Montserrat', sans-serif;
         }
 
         .col-md-3 .list-group a:hover {
-            background-color:rgb(57, 90, 240);
+            font-family: 'Montserrat', sans-serif;
+            background-color: rgb(31, 49, 129);
             color: white;
         }
 
@@ -131,15 +143,21 @@
             max-width: 30%;
             height: auto;
         }
+        p{
+            font-family: 'Montserrat', sans-serif;
+        }
 
         footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
             background-color: var(--gray-900);
-            color: #fff;
+            color: #ffffff;
             padding: 1rem;
             text-align: center;
-            width: 100%;
-            position: relative;
             border-top: 2px solid var(--bright-blue);
+            z-index: 1000;
         }
 
         .footer-links {
@@ -156,20 +174,6 @@
 
         .footer-links a:hover {
             text-decoration: underline;
-        }
-
-        @media screen and (max-width: 650px) {
-            .content {
-                flex-direction: column;
-                width: 100%;
-            }
-
-            .divider {
-                height: 1px;
-                width: 100%;
-                background: var(--red-to-pink-to-purple-horizontal-gradient);
-                margin-block: 1.5rem;
-            }
         }
     </style>
 </head>
@@ -200,7 +204,7 @@
                 <div class="col-md-9">
                     <div class="text-center">
                         <img src="./assets/pp2.png" alt="Descripción de la imagen" class="img-fluid mb-4">
-                        <p>Por favor, seleccione una opción del menú a la izquierda para comenzar.</p>
+                        <p >Por favor, seleccione una opción del menú a la izquierda para comenzar.</p>
                     </div>
                 </div>
             </div>
@@ -210,17 +214,14 @@
     <footer>
         <div class="container">
             <div class="row">
-
                 <div class="col-md-4">
                     <h5>Contacto</h5>
                     <p><i class="bi bi-geo-alt"></i> Dirección: Ajavi y Cardenal de la torre, Sangolquí, Ecuador</p>
                     <p><i class="bi bi-envelope"></i> Email: grupo4.colegio.com</p>
-                    <p><i class="bi bi-telephone"></i> Teléfono: +123 4666 7690</p>
                 </div>
                 <div class="col-md-4">
                     <h5>Enlaces Útiles</h5>
                     <ul class="list-unstyled">
-
                         <li><a href="#">Términos de Servicio</a></li>
                         <li><a href="#">Soporte</a></li>
                     </ul>
@@ -235,11 +236,10 @@
             </div>
             <hr class="my-4">
             <div class="text-center">
-                <p class="mb-0">© 2024 Colegio Manitas del Saber. Todos los derechos reservados.</p>
+                <p class="mb-0">© 2024 Colegio La Salle. Todos los derechos reservados.</p>
             </div>
         </div>
     </footer>
-
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
         integrity="sha384-oBqDVmMz4fnFO9PTFJpBFCtJZP/0Gx8bO5b2gIoC7q4x4YV0Z95fR6zFq6uK5qX3"

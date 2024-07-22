@@ -1,3 +1,4 @@
+/// <reference types="jasmine" />
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import {
   ComponentFixture,
