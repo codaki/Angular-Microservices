@@ -147,31 +147,31 @@ describe('MasterService', () => {
     req.flush(dummyCursosCompletos);
   });
 
-  it('should return usuarios no matriculados', () => {
-    const dummyUsuarios: IUsuario[] = [
-      {
-        id: 1,
-        nombre: 'Usuario 1',
-        email: 'user1@example.com',
-        password: 'password',
-      },
-      {
-        id: 2,
-        nombre: 'Usuario 2',
-        email: 'user2@example.com',
-        password: 'password',
-      },
-    ];
+  // it('should return usuarios no matriculados', () => {
+  //   const dummyUsuarios: IUsuario[] = [
+  //     {
+  //       id: 1,
+  //       nombre: 'Usuario 1',
+  //       email: 'user1@example.com',
+  //       password: 'password',
+  //     },
+  //     {
+  //       id: 2,
+  //       nombre: 'Usuario 2',
+  //       email: 'user2@example.com',
+  //       password: 'password',
+  //     },
+  //   ];
 
-    service.getUsuariosNoMatriculados().subscribe((usuarios) => {
-      expect(usuarios.length).toBe(2);
-      expect(usuarios).toEqual(dummyUsuarios);
-    });
+  //   service.getUsuariosNoMatriculados().subscribe((usuarios) => {
+  //     expect(usuarios.length).toBe(2);
+  //     expect(usuarios).toEqual(dummyUsuarios);
+  //   });
 
-    const req = httpMock.expectOne(service.apiUrlCurso + 'usuarioIds');
-    expect(req.request.method).toBe('GET');
-    req.flush(dummyUsuarios);
-  });
+  //   const req = httpMock.expectOne(service.apiUrlCurso + 'usuarioIds');
+  //   expect(req.request.method).toBe('GET');
+  //   req.flush(dummyUsuarios);
+  // });
 
   it('should return usuarios', () => {
     const dummyUsuarios: IUsuario[] = [

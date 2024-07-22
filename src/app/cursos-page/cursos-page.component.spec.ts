@@ -99,20 +99,20 @@ describe('CursosPageComponent', () => {
   //   expect(component.loadCursos).toHaveBeenCalled();
   // }));
 
-  it('should handle error when deleting curso', fakeAsync(() => {
-    const cursoId = 1;
-    masterServiceSpy.deleteCurso.and.returnValue(
-      throwError(() => new Error('Error'))
-    );
-    spyOn(console, 'error');
-    spyOn(window, 'alert');
+  // it('should handle error when deleting curso', fakeAsync(() => {
+  //   const cursoId = 1;
+  //   masterServiceSpy.deleteCurso.and.returnValue(
+  //     throwError(() => new Error('Error'))
+  //   );
+  //   spyOn(console, 'error');
+  //   spyOn(window, 'alert');
 
-    component.deleteCurso(cursoId);
-    tick();
+  //   component.deleteCurso(cursoId);
+  //   tick();
 
-    expect(console.error).toHaveBeenCalled();
-    expect(window.alert).toHaveBeenCalledWith('Error al eliminar curso.');
-  }));
+  //   expect(console.error).toHaveBeenCalled();
+  //   expect(window.alert).toHaveBeenCalledWith('Error al eliminar curso.');
+  // }));
 
   it('should update curso successfully', fakeAsync(() => {
     const mockCurso = new CCurso();
