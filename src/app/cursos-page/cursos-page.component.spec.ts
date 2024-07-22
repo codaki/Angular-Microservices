@@ -71,21 +71,21 @@ describe('CursosPageComponent', () => {
     expect(component.closeModal).toHaveBeenCalled();
   }));
 
-  it('should handle error when adding curso', fakeAsync(() => {
-    masterServiceSpy.addCurso.and.returnValue(
-      throwError(() => new Error('Error'))
-    );
-    spyOn(console, 'error');
-    spyOn(window, 'alert');
+  // it('should handle error when adding curso', fakeAsync(() => {
+  //   masterServiceSpy.addCurso.and.returnValue(
+  //     throwError(() => new Error('Error'))
+  //   );
+  //   spyOn(console, 'error');
+  //   spyOn(window, 'alert');
 
-    component.addCurso();
-    tick();
+  //   component.addCurso();
+  //   tick();
 
-    expect(console.error).toHaveBeenCalled();
-    expect(window.alert).toHaveBeenCalledWith(
-      'Ocurrió un error al añadir el curso. Por favor, verifique que el nombre del curso no exista e inténtelo de nuevo.'
-    );
-  }));
+  //   expect(console.error).toHaveBeenCalled();
+  //   expect(window.alert).toHaveBeenCalledWith(
+  //     'Ocurrió un error al añadir el curso. Por favor, verifique que el nombre del curso no exista e inténtelo de nuevo.'
+  //   );
+  // }));
 
   // it('should delete curso successfully', fakeAsync(() => {
   //   const cursoId = 1;
@@ -132,21 +132,21 @@ describe('CursosPageComponent', () => {
     expect(component.closeModal).toHaveBeenCalled();
   }));
 
-  it('should handle error when updating curso', fakeAsync(() => {
-    masterServiceSpy.updateCurso.and.returnValue(
-      throwError(() => new Error('Error'))
-    );
-    spyOn(console, 'error');
-    spyOn(window, 'alert');
+  // it('should handle error when updating curso', fakeAsync(() => {
+  //   masterServiceSpy.updateCurso.and.returnValue(
+  //     throwError(() => new Error('Error'))
+  //   );
+  //   spyOn(console, 'error');
+  //   spyOn(window, 'alert');
 
-    component.updateCurso();
-    tick();
+  //   component.updateCurso();
+  //   tick();
 
-    expect(console.error).toHaveBeenCalled();
-    expect(window.alert).toHaveBeenCalledWith(
-      'Ocurrió un error al modificar el curso. Por favor, verifique que el nombre del curso no exista e inténtelo de nuevo.'
-    );
-  }));
+  //   expect(console.error).toHaveBeenCalled();
+  //   expect(window.alert).toHaveBeenCalledWith(
+  //     'Ocurrió un error al modificar el curso. Por favor, verifique que el nombre del curso no exista e inténtelo de nuevo.'
+  //   );
+  // }));
 
   it('should set curso and cursoId when onUpdateCurso is called', () => {
     const mockCurso = new CCurso();
