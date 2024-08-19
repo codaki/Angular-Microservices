@@ -1,0 +1,84 @@
+.gridCentrao {
+    display: grid;
+    place-items: center;
+}
+
+.grid{
+    display: grid;
+}
+
+.pageSize {
+    height: 80vh;
+    width: 98vw;
+}
+
+.gridTop {
+    display: grid;
+    place-items: top;
+}
+
+.EightyPercentSize {
+    height: 80%;
+    width: 80%;
+    overflow: auto;
+}
+
+.NinetyercentSize {
+    height: 90%;
+    width: 90%;
+}
+
+.grid-2row-top {
+    grid-template-rows: 20% 80%;
+}
+
+.grid-2col-equal {
+    grid-template-columns: 50% 50%;
+}
+
+.grid-2row-equal {
+    grid-template-rows: 50% 50%;
+}
+
+.grid-3col-equal {
+    grid-template-columns: 33% 33% 33%;
+}
+
+.btn-color {
+    background-color: #1f6cac;
+    color: azure;
+}
+
+.container-border{
+    border-style: double;
+    border-color: #134d7c; 
+    border-width: 2px; 
+    padding:2vw;
+}
+.btn-color-border{
+    border-style: double;
+    border-color: #134d7c; 
+    border-width: 2px; 
+}
+
+.container-todo {
+    width: 80vw;
+}
+
+.container-inicio {
+    display: grid;
+    grid-template-columns: 10% 40%;
+    align-items: end;
+}
+
+.modal-dialog{
+    background-color: white;
+    border-radius: 8;
+}
+
+.container-matriculado{
+    border-style: double;
+    border-color: #939e9c; 
+    border-width: 0.3px; 
+    margin-bottom: 1vw;
+}
