@@ -2,9 +2,7 @@ version: '3.8'
 
 services:
   msvc-usuarios:
-    build:
-      context: ./msvc-usuarios
-      dockerfile: Dockerfile
+    image: codaki/test2:v4
     ports:
       - "8001:8001"
     environment:
@@ -14,13 +12,12 @@ services:
       - SPRING_JPA_HIBERNATE_DDL_AUTO=update
     depends_on:
       - mysql
+    restart: always
     networks:
       - host
 
   msvc-cursos:
-    build:
-      context: ./msvc-cursos
-      dockerfile: Dockerfile
+    image: codaki/test2:v5
     ports:
       - "8002:8002"
     environment:
@@ -71,9 +68,7 @@ services:
       - host
 
   frontend:
-    build:
-      context: ./front
-      dockerfile: Dockerfile
+    image: codaki/test2:v3
     ports:
       - "4200:80"
     depends_on:
