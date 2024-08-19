@@ -1,0 +1,218 @@
+<div class="container-todo">
+  <div class="container-inicio px-4 border p-3 shadow">
+    <div class="">
+      <button type="button" class="btn" id="regresar">
+        <a class="pill" href="/" rel="noopener">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="30"
+            height="30"
+            fill="#134d7c"
+            class="bi bi-arrow-left-circle-fill"
+            viewBox="0 0 16 16"
+          >
+            <path
+              d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0m3.5 7.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5z"
+            />
+          </svg>
+        </a>
+      </button>
+    </div>
+    <div class="col-sm">
+      <h3>Gestión de Matrículas</h3>
+    </div>
+  </div>
+  <br />
+  <div class="gridCentrao pageSize grid-2col-equal container-todo shadow">
+    <div class="gridTop NinetyercentSize grid-2row-top container-border">
+      <div>
+        <h1>Matricular a un Curso</h1>
+        <table class="table caption-top">
+          <thead>
+            <tr>
+              <th scope="col">ID</th>
+              <th scope="col">Nombre</th>
+              <th scope="col">Matricular</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (item of cursos; track 'id') {
+            <tr>
+              <td>{{ item.id }}</td>
+              <td>{{ item.nombre }}</td>
+              <td>
+                <button
+                  type="button"
+                  class="btn btn-color-border"
+                  data-bs-toggle="modal"
+                  data-bs-target="#cursoModal"
+                  (click)="onUpdateCurso(item, item.id)"
+                >
+                  Matricular
+                </button>
+              </td>
+            </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="gridTop NinetyercentSize grid-2row-top container-border">
+      <h1 style="margin-top: 0.3vh">Estudiantes Matriculados</h1>
+      <div class="accordion" id="accordionExample">
+        <div
+          *ngFor="let curso of cursosCompletos; trackBy: trackById"
+          class="accordion-item"
+        >
+          <h2 class="accordion-header" [id]="'heading' + curso.id">
+            <button
+              class="accordion-button collapsed"
+              type="button"
+              id="{{ curso.id }}"
+              data-bs-toggle="collapse"
+              [attr.data-bs-target]="'#collapse' + curso.id"
+              aria-expanded="false"
+              [attr.aria-controls]="'collapse' + curso.id"
+            >
+              {{ curso.nombre }}
+            </button>
+          </h2>
+          <div
+            [id]="'collapse' + curso.id"
+            class="accordion-collapse collapse"
+            [attr.aria-labelledby]="'heading' + curso.id"
+            data-bs-parent="#accordionExample"
+          >
+            <div class="accordion-body">
+              <div
+                *ngIf="curso.cursoUsuarios.length === 0"
+                class="gridCentrao grid-2col-equal"
+              >
+                <div>
+                  <p>No hay estudiantes registrados.</p>
+                </div>
+                <div class="gridCentrao">
+                  <p>Registre ahora:</p>
+                  <button
+                    type="button"
+                    class="btn btn-color"
+                    data-bs-toggle="modal"
+                    data-bs-target="#cursoModal"
+                    (click)="onUpdateCurso(curso, curso.id)"
+                  >
+                    Matricular
+                  </button>
+                </div>
+              </div>
+              <div
+                *ngFor="
+                  let cursoUsuario of curso.cursoUsuarios;
+                  trackBy: trackById
+                "
+              >
+                <div class="gridCentrao grid-2col-equal container-matriculado">
+                  <div class="gridCentrao">
+                    <p>Usuario ID: {{ cursoUsuario.usuarioId }}</p>
+                    <p>
+                      Nombre: {{ getUsuarioNombre(cursoUsuario.usuarioId) }}
+                    </p>
+                  </div>
+
+                  <button
+                    type="button"
+                    class="btn btn-color"
+                    (click)="
+                      desmatricularEstudiante(cursoUsuario.usuarioId, curso.id)
+                    "
+                  >
+                    Desmatricular
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal para Matricular Estudiantes -->
+  <div
+    class="modal fade"
+    id="cursoModal"
+    tabindex="-1"
+    aria-labelledby="cursoModal"
+    aria-hidden="true"
+    #cursoModal
+  >
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="cursoModal"></h5>
+          <button
+            type="button"
+            class="btn-close"
+            (click)="closeModal()"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="modal-body">
+          <div class="mb-3">
+            <label for="exampleFormControlInput1" class="form-label"
+              >Nombre</label
+            >
+            <input
+              type="text"
+              class="form-control"
+              id="exampleFormControlInput1"
+              placeholder="Nombre del curso"
+              [(ngModel)]="curso.nombre"
+              readonly
+            />
+          </div>
+
+          <!-- Tabla de Estudiantes -->
+
+          <h5>Estudiantes</h5>
+          <table class="table table-light table-striped">
+            <thead>
+              <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Nombre</th>
+                <th scope="col">Email</th>
+                <th scope="col">Acción</th>
+              </tr>
+            </thead>
+            <tbody>
+              @for (usuario of usuariosMatriculados; track 'id') {
+              <tr>
+                <td>{{ usuario.id }}</td>
+                <td>{{ usuario.nombre }}</td>
+                <td>{{ usuario.email }}</td>
+                <td>
+                  <button
+                    type="button"
+                    class="btn btn-success"
+                    (click)="matricularEstudiante(usuario.id)"
+                  >
+                    Matricular
+                  </button>
+                </td>
+              </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            (click)="closeModal()"
+          >
+            Cancelar
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
