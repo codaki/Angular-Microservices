@@ -1,0 +1,883 @@
+{
+	"info": {
+		"_postman_id": "113265db-bdc3-4a9e-ba89-6c0053a2f3c4",
+		"name": "Pruebas de Microservicios",
+		"description": "Pruebas de funcionalidad de la API de microservicios",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "27941478",
+		"_collection_link": "https://warped-astronaut-348587.postman.co/workspace/mapadecalor~54ec1743-7741-4b0a-9aff-c24a5f9b2cbe/collection/27941478-113265db-bdc3-4a9e-ba89-6c0053a2f3c4?action=share&source=collection_link&creator=27941478"
+	},
+	"item": [
+		{
+			"name": "Usuarios",
+			"item": [
+				{
+					"name": "SaveUser",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status de respuesta es 201\", function () {\r",
+									"    pm.expect(pm.response.code).to.equal(201);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Respuesta contiene los campos requeridos\", function () {\r",
+									"    const responseData = pm.response.json();\r",
+									"    \r",
+									"    pm.expect(responseData).to.be.an('object');\r",
+									"    pm.expect(responseData.id).to.exist;\r",
+									"    pm.expect(responseData.nombre).to.exist;\r",
+									"    pm.expect(responseData.email).to.exist;\r",
+									"    pm.expect(responseData.password).to.exist;\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"El email es único y en el formato váldio\", function () {\r",
+									"    const responseData = pm.response.json();\r",
+									"    \r",
+									"    pm.expect(responseData.email).to.match(/^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/, \"Email no es único o no tiene el formato válido\");\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"La contraseña no es vacía\", function () {\r",
+									"  const responseData = pm.response.json();\r",
+									"  \r",
+									"  pm.expect(responseData.password).to.be.a('string').and.to.have.lengthOf.at.least(1, \"Password should not be empty\");\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"El tiempo de respuesta es menor a 200ms\", function () {\r",
+									"  pm.expect(pm.response.responseTime).to.be.below(200);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nombre\": \"postman-test1\",\r\n    \"email\": \"postman-test1@gmail.com\",\r\n    \"password\": \"password\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8001/saveUser",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8001",
+							"path": [
+								"saveUser"
+							]
+						},
+						"description": "Este endpoint guarda un usuario dentro de la base de datos.\n\nEn el body de la petición, es necesario ingresar las variables de nombre, email y password. El id del usuario se genera automáticamente.\n\nPara que este endpoint funcione correctamente, es necesario no repetir el email del usuario."
+					},
+					"response": []
+				},
+				{
+					"name": "GetUsers",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status de respuesta es 200\", function () {\r",
+									"  pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Respuesta tiene los campos requeridos\", function () {\r",
+									"    const responseData = pm.response.json();\r",
+									"    \r",
+									"    pm.expect(responseData).to.be.an('array');\r",
+									"    \r",
+									"    responseData.forEach(function(user) {\r",
+									"        pm.expect(user).to.have.property('id');\r",
+									"        pm.expect(user).to.have.property('nombre');\r",
+									"        pm.expect(user).to.have.property('email');\r",
+									"        pm.expect(user).to.have.property('password');\r",
+									"    });\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Todos los usuarios tienen emails válidos\", function () {\r",
+									"    const responseData = pm.response.json();\r",
+									"    \r",
+									"    responseData.forEach(function(user) {\r",
+									"        pm.expect(user.email).to.match(/^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/);\r",
+									"    });\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Todos los usuarios tienen contraseña\", function () {\r",
+									"    const responseData = pm.response.json();\r",
+									"    \r",
+									"    responseData.forEach(function(user) {\r",
+									"        pm.expect(user.password).to.exist.and.to.not.be.empty;\r",
+									"    });\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Tiempo de respuesta menor a 200ms\", function () {\r",
+									"  pm.expect(pm.response.responseTime).to.be.below(200);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8001/getUsers",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8001",
+							"path": [
+								"getUsers"
+							]
+						},
+						"description": "Este endpoint retorna todos los usuarios dentro de la base de datos."
+					},
+					"response": []
+				},
+				{
+					"name": "FindUser",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status de respuesta es 200\", function () {\r",
+									"  pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Tiempo de respuesta es menor a 200ms\", function () {\r",
+									"  pm.expect(pm.response.responseTime).to.be.below(200);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"La respuesta tiene los campos requeridos\", function () {\r",
+									"    const responseData = pm.response.json();\r",
+									"    \r",
+									"    pm.expect(responseData).to.be.an('object');\r",
+									"    pm.expect(responseData).to.have.property('id');\r",
+									"    pm.expect(responseData).to.have.property('nombre');\r",
+									"    pm.expect(responseData).to.have.property('email');\r",
+									"    pm.expect(responseData).to.have.property('password');\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Email único y en formato válido\", function () {\r",
+									"  const responseData = pm.response.json();\r",
+									"  \r",
+									"  pm.expect(responseData).to.be.an('object');\r",
+									"  pm.expect(responseData.email).to.match(/^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$/);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Contraseña no está vacía\", function () {\r",
+									"  const responseData = pm.response.json();\r",
+									"  \r",
+									"  pm.expect(responseData).to.be.an('object');\r",
+									"  pm.expect(responseData.password).to.be.a('string').and.to.have.lengthOf.at.least(1, \"Password should not be empty\");\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8001/findUser/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8001",
+							"path": [
+								"findUser",
+								"2"
+							]
+						},
+						"description": "Este endpoint encuentra un usuario en específico, dado que este exista, utilizando el id del mismo como un parámetro del URL."
+					},
+					"response": []
+				},
+				{
+					"name": "ModificarUser",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status de respuesta es 201\", function () {\r",
+									"  pm.response.to.have.status(201);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Respuesta tiene los campos requeridos\", function () {\r",
+									"    const responseData = pm.response.json();\r",
+									"\r",
+									"    pm.expect(responseData).to.be.an('object');\r",
+									"    pm.expect(responseData).to.have.property('id');\r",
+									"    pm.expect(responseData).to.have.property('nombre');\r",
+									"    pm.expect(responseData).to.have.property('email');\r",
+									"    pm.expect(responseData).to.have.property('password');\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Email único y en formato válido\", function () {\r",
+									"  const responseData = pm.response.json();\r",
+									"\r",
+									"  pm.expect(responseData.email).to.match(/\\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,}\\b/i);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Tiempo de respuesta es menor a 200ms\", function () {\r",
+									"  pm.expect(pm.response.responseTime).to.be.below(200);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "\r\n{\r\n    \"nombre\": \"postman-test-modificado\",\r\n    \"email\": \"postman-test-modificado@gmail.com\",\r\n    \"password\": \"password-modificada\"\r\n\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8001/modificarUser/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8001",
+							"path": [
+								"modificarUser",
+								"2"
+							]
+						},
+						"description": "Este endpoint modifica un usuario, dado que este exista, utilizando el id del mismo como un parámetro del URL.\n\nDentro del body, es necesario enviar los campos de nombre, email y password."
+					},
+					"response": []
+				},
+				{
+					"name": "EliminarUser",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status de respuesta es 409\", function () {\r",
+									"  pm.expect(pm.response.code).to.equal(409);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"La respuesta tiene el Header Content-Type correcto\", function () {\r",
+									"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"text/plain\");\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Respuesta de error correcta\", function () {\r",
+									"    pm.expect(pm.response.text()).to.include(\"No se puede eliminar el usuario porque pertenece a un curso\");\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Tiempo de respuesta menor a 200ms\", function () {\r",
+									"  pm.expect(pm.response.responseTime).to.be.below(200);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8001/eliminarUser/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8001",
+							"path": [
+								"eliminarUser",
+								"2"
+							]
+						},
+						"description": "Este endpoint elimina a un usuario, dado que exista, utilizando el id del mismo como parámetro del URL.\n\nUn usuario no podrá ser eliminado si pertenece a un curso."
+					},
+					"response": []
+				}
+			],
+			"description": "Esta colección hace referencia a todos los Endpoints que se comunican con el microservicio de usuarios."
+		},
+		{
+			"name": "Cursos",
+			"item": [
+				{
+					"name": "GetAll",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status de respuesta es 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"\r",
+									"pm.test(\"La respuesta tiene el Header Content-Type correcto\", function () {\r",
+									"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Esquema del body válido\", function () {\r",
+									"    const responseData = pm.response.json();\r",
+									"\r",
+									"    pm.expect(responseData).to.be.an('array');\r",
+									"    responseData.forEach(function(curso) {\r",
+									"        pm.expect(curso).to.be.an('object');\r",
+									"        pm.expect(curso.id).to.exist.and.to.be.a('number');\r",
+									"        pm.expect(curso.nombre).to.exist.and.to.be.a('string');\r",
+									"        \r",
+									"        pm.expect(curso.cursoUsuarios).to.be.an('array');\r",
+									"        curso.cursoUsuarios.forEach(function(cursoUsuario) {\r",
+									"            pm.expect(cursoUsuario).to.be.an('object');\r",
+									"            pm.expect(cursoUsuario.id).to.exist.and.to.be.a('number');\r",
+									"            pm.expect(cursoUsuario.usuarioId).to.exist.and.to.be.a('number');\r",
+									"        });\r",
+									"    });\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8002/getCursos",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8002",
+							"path": [
+								"getCursos"
+							]
+						},
+						"description": "Este endpoint retorna todos los cursos, con la información de todos los estudiantes matriculados en cada curso, que se encuentren dentro de la base de datos."
+					},
+					"response": []
+				},
+				{
+					"name": "Find",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status de respuesta es 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"",
+									"pm.test(\"La respuesta tiene el Header Content-Type correcto\", function () {",
+									"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");",
+									"});",
+									"",
+									"",
+									"pm.test(\"El id debe existir y ser un número\", function () {",
+									"    const responseData = pm.response.json();",
+									"    ",
+									"    pm.expect(responseData).to.be.an('object');",
+									"    pm.expect(responseData.id).to.exist.and.to.be.a('number');",
+									"});",
+									"",
+									"",
+									"pm.test(\"El campo de nombre debe existir y no estar vacío\", function () {",
+									"    const responseData = pm.response.json();",
+									"    ",
+									"    pm.expect(responseData).to.be.an('object');",
+									"    pm.expect(responseData.nombre).to.exist.and.to.be.a('string').and.to.have.lengthOf.at.least(1, \"Nombre should not be empty\");",
+									"});",
+									"",
+									"",
+									"pm.test(\"El array de cursoUsuarios debe existir y tener el número esperado\", function () {",
+									"    const responseData = pm.response.json();",
+									"    ",
+									"    pm.expect(responseData).to.be.an('object');",
+									"    pm.expect(responseData.cursoUsuarios).to.exist;",
+									"    pm.expect(responseData.cursoUsuarios).to.be.an('array');",
+									"    pm.expect(responseData.cursoUsuarios).to.have.lengthOf(1);",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8002/findCurso/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8002",
+							"path": [
+								"findCurso",
+								"1"
+							]
+						},
+						"description": "Este endpoint retorna un curso en específico, buscándolo según el id que viene como parámetro dentro del URL."
+					},
+					"response": []
+				},
+				{
+					"name": "SaveCurso",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status de respuesta es 201\", function () {\r",
+									"    pm.expect(pm.response.code).to.equal(201);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Respuesta es menor a 200ms\", function () {\r",
+									"  pm.expect(pm.response.responseTime).to.be.below(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Respuesta contiene los campos requeridos\", function () {\r",
+									"    const responseData = pm.response.json();\r",
+									"    \r",
+									"    pm.expect(responseData).to.be.an('object');\r",
+									"    pm.expect(responseData.id).to.exist;\r",
+									"    pm.expect(responseData.nombre).to.exist;\r",
+									"    pm.expect(responseData.cursoUsuarios).to.exist.and.to.be.empty;\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Nombre no debe ser vacío\", function () {\r",
+									"    const responseData = pm.response.json();\r",
+									"    \r",
+									"    pm.expect(responseData).to.be.an('object');\r",
+									"    pm.expect(responseData.nombre).to.be.a('string').and.to.have.lengthOf.at.least(1, \"Value should not be empty\");\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nombre\": \"CursoTest\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8002/saveCurso",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8002",
+							"path": [
+								"saveCurso"
+							]
+						},
+						"description": "Este endpoint guarda un curso dentro de la base de datos.\n\nEl único parámetro necesario es el de nombre. El id del curso se genera automáticamente. La lista de los usuarios matriculados comienza vacía por defecto."
+					},
+					"response": []
+				},
+				{
+					"name": "ModificarCurso",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status de respuesta es 201\", function () {\r",
+									"  pm.response.to.have.status(201);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Respuesta tiene los campos necesarios\", function () {\r",
+									"  const responseData = pm.response.json();\r",
+									"  \r",
+									"  pm.expect(responseData).to.be.an('object');\r",
+									"  pm.expect(responseData).to.have.property('id');\r",
+									"  pm.expect(responseData).to.have.property('nombre');\r",
+									"  pm.expect(responseData).to.have.property('cursoUsuarios');\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Nombre no debe ser vacío\", function () {\r",
+									"    const responseData = pm.response.json();\r",
+									"    \r",
+									"    pm.expect(responseData).to.be.an('object');\r",
+									"    pm.expect(responseData.nombre).to.be.a('string').and.to.have.lengthOf.at.least(1, \"Value should not be empty\");\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Respuesta debe ser menor a 200ms\", function () {\r",
+									"  pm.expect(pm.response.responseTime).to.be.below(200);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nombre\":\"Curso Modificado\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8002/modificarCurso/10",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8002",
+							"path": [
+								"modificarCurso",
+								"10"
+							]
+						},
+						"description": "Este endpoint modifica un curso, dado que exista, utilizando el id como parámetro dentro del URL.\n\nEl único campo necesario es el de nombre, el resto de parámetros no se reconocen para editar."
+					},
+					"response": []
+				},
+				{
+					"name": "EliminarCurso",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status de respuesta es 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Respuesta tiene el campo 'mensaje'\", function () {\r",
+									"    const responseData = pm.response.json();\r",
+									"    \r",
+									"    pm.expect(responseData).to.have.property('mensaje');\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"La respuesta tiene el Header Content-Type correcto\", function () {\r",
+									"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Respuesta es menor a 200ms\", function () {\r",
+									"  pm.expect(pm.response.responseTime).to.be.below(200);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Respuesta tiene el esquema correcto\", function () {\r",
+									"    const responseData = pm.response.json();\r",
+									"    \r",
+									"    pm.expect(responseData).to.be.an('object');\r",
+									"    pm.expect(responseData.mensaje).to.be.a('string');\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8002/eliminarCurso/10",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8002",
+							"path": [
+								"eliminarCurso",
+								"10"
+							]
+						},
+						"description": "Este endpoint elimina un curso, dado que exista, utilizando el id como parámetro dentro del URL.\n\nUn curso no podrá ser eliminado si este contiene usuarios registrados."
+					},
+					"response": []
+				},
+				{
+					"name": "AsignarCurso",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status de respuesta es 200\", function () {\r",
+									"  pm.expect(pm.response.code).to.equal(200);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Tiempo de respuesta es menor a 200ms\", function () {\r",
+									"  pm.expect(pm.response.responseTime).to.be.below(200);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Respuesta tiene los campos necesarios\", function () {\r",
+									"    const responseData = pm.response.json();\r",
+									"    \r",
+									"    pm.expect(responseData).to.be.an('boolean');\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"La respuesta tiene el Header Content-Type correcto\", function () {\r",
+									"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Respuesta es un valor boolenano\", function () {\r",
+									"  const responseData = pm.response.json();\r",
+									"  pm.expect(responseData).to.be.a('boolean');\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n     \"id\": 2,\r\n        \"nombre\": \"postman-test-modificado\",\r\n        \"email\": \"postman-test-modificado@gmail.com\",\r\n        \"password\": \"password-modificada\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8002/asignarUsuario/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8002",
+							"path": [
+								"asignarUsuario",
+								"2"
+							]
+						},
+						"description": "Este endpoint matricula o \"asigna\" usuarios dentro de un curso, utilizando el id del curso como parámetro del URL, además de enviar dentro del body la información del usuario a matricular."
+					},
+					"response": []
+				},
+				{
+					"name": "UsuarioIds",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status de respuesta es 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Tiempo de respuesta es menor a 200ms\", function () {\r",
+									"  pm.expect(pm.response.responseTime).to.be.below(200);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"La respuesta tiene el Header Content-Type correcto\", function () {\r",
+									"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Esquema válido\", function () {\r",
+									"    const responseData = pm.response.json();\r",
+									"    \r",
+									"    pm.expect(responseData).to.be.an('array');\r",
+									"    responseData.forEach(function(user) {\r",
+									"        pm.expect(user).to.have.property('id').that.is.a('number');\r",
+									"        pm.expect(user).to.have.property('nombre').that.is.a('string');\r",
+									"        pm.expect(user).to.have.property('email').that.is.a('string');\r",
+									"        pm.expect(user).to.have.property('password').that.is.a('string');\r",
+									"    });\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8002/usuarioIds/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8002",
+							"path": [
+								"usuarioIds",
+								"1"
+							]
+						},
+						"description": "Este endpoint retorna los usuarios que no se encuentren dentro de un curso determinado. El id del curso del cual se busca se manda como parámetro del URL."
+					},
+					"response": []
+				},
+				{
+					"name": "EliminarUsuario",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status de respuesta es 200\", function () {\r",
+									"    pm.expect(pm.response.code).to.equal(200);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Tiempo de respuesta es menor a 200ms\", function () {\r",
+									"  pm.expect(pm.response.responseTime).to.be.below(500);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Respuesta tiene los campos necesarios\", function () {\r",
+									"    pm.expect(pm.response).to.have.header(\"Content-Type\", \"application/json\");\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Respuesta debería ser 'true'\", function () {\r",
+									"    const responseData = pm.response.json();\r",
+									"    \r",
+									"    pm.expect(responseData).to.be.a('boolean');\r",
+									"    pm.expect(responseData).to.equal(true);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n     \"id\": 2,\r\n        \"nombre\": \"postman-test-modificado\",\r\n        \"email\": \"postman-test-modificado@gmail.com\",\r\n        \"password\": \"password-modificada\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8002/eliminarUsuario/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8002",
+							"path": [
+								"eliminarUsuario",
+								"2"
+							]
+						},
+						"description": "Este endpoint desmatricula o \"elimina\" un usuario dentro de un curso. Para esto, es necesario el id del curso como parámetro del URL, además del body conteniendo la información del usuario."
+					},
+					"response": []
+				}
+			],
+			"description": "Esta colección contiene los endpoints referentes al microservicio de cursos. Dentro de las funciones de este endpoint también se incluye el proceso de matricular y desmatricular usuarios dentro de los cursos."
+		}
+	]
+}
