@@ -109,8 +109,8 @@ services:
       KC_LOG_LEVEL: info
       KC_METRICS_ENABLED: true
       KC_HEALTH_ENABLED: true
-      KEYCLOAK_ADMIN: admin
-      KEYCLOAK_ADMIN_PASSWORD: admin
+      KEYCLOAK_ADMIN: Admin
+      KEYCLOAK_ADMIN_PASSWORD: grupo4Admin2024@
     command: start-dev
     depends_on:
       - keycloakdb
