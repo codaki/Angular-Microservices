@@ -85,7 +85,7 @@ services:
     # build:
     #   context: ./front
     #   dockerfile: Dockerfile
-    image: codaki/oauth:frontend
+    image: codaki/oauth:front
     ports:
       - "4200:80"
     depends_on:
