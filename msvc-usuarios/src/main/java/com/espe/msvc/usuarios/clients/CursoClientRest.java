@@ -5,7 +5,7 @@ import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import java.util.List;
 
-@FeignClient(name = "msvc-cursos", url = "localhost:8002", configuration = FeignClientConfig.class)
+@FeignClient(name = "msvc-cursos", url = "msvc-cursos:8002", configuration = FeignClientConfig.class)
 public interface CursoClientRest {
 
     @GetMapping("/getCursos")

@@ -1,8 +1,11 @@
 version: '3.8'
 
 services:
+
   msvc-usuarios:
-    image: codaki/test2:v4
+    build:
+      context: ./msvc-usuarios
+      dockerfile: Dockerfile
     ports:
       - "8001:8001"
     environment:
@@ -12,7 +15,7 @@ services:
       - SPRING_JPA_HIBERNATE_DDL_AUTO=update
       - SPRING_APPLICATION_NAME=msvc-usuarios
       - SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUER_URI=http://localhost:8080/realms/estudiantes-cursos
-      - SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_JWK_SET_URI=http://localhost:8080/realms/estudiantes-cursos/protocol/openid-connect/certs
+      - SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_JWK_SET_URI=http://keycloak_web:8080/realms/estudiantes-cursos/protocol/openid-connect/certs
       - JWT_AUTH_CONVERTER_RESOURCE_ID=backend
       - JWT_AUTH_CONVERTER_PRINCIPAL_ATTRIBUTE=admin2
       - SPRING_DATASOURCE_DRIVER_CLASS_NAME=com.mysql.cj.jdbc.Driver
@@ -27,7 +30,9 @@ services:
       - host
 
   msvc-cursos:
-    image: codaki/test2:v5
+    build:
+      context: ./msvc-cursos
+      dockerfile: Dockerfile
     ports:
       - "8002:8002"
     environment:
@@ -37,7 +42,7 @@ services:
       - SPRING_JPA_HIBERNATE_DDL_AUTO=update
       - SPRING_APPLICATION_NAME=msvc-cursos
       - SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUER_URI=http://localhost:8080/realms/estudiantes-cursos
-      - SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_JWK_SET_URI=http://localhost:8080/realms/estudiantes-cursos/protocol/openid-connect/certs
+      - SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_JWK_SET_URI=http://keycloak_web:8080/realms/estudiantes-cursos/protocol/openid-connect/certs
       - JWT_AUTH_CONVERTER_RESOURCE_ID=backend
       - JWT_AUTH_CONVERTER_PRINCIPAL_ATTRIBUTE=admin2
       - SPRING_DATASOURCE_DRIVER_CLASS_NAME=org.postgresql.Driver

@@ -1,9 +1,15 @@
-import { Component, inject, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MasterService } from '../Service/master.service';
-import { IUsuario, CUsuario } from '../model/usuario';
+import {
+  Component,
+  ElementRef,
+  inject,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { FormsModule } from '@angular/forms';
-
+import * as bcrypt from 'bcryptjs'; // Importa bcrypt
+import { MasterService } from '../Service/master.service';
+import { CUsuario, IUsuario } from '../model/usuario';
 declare const bootstrap: any;
 
 @Component({
@@ -11,7 +17,7 @@ declare const bootstrap: any;
   standalone: true,
   imports: [FormsModule, CommonModule],
   templateUrl: './estudiantes-page.component.html',
-  styleUrl: './estudiantes-page.component.css'
+  styleUrl: './estudiantes-page.component.css',
 })
 export class EstudiantesPageComponent implements OnInit {
   @ViewChild('userModal') usuarioModal?: ElementRef;
@@ -31,28 +37,45 @@ export class EstudiantesPageComponent implements OnInit {
       this.usuarios = res;
     });
   }
+  async hashPassword(password: string): Promise<string> {
+    const saltRounds = 10; // Número de rondas de salt para bcrypt
+    return await bcrypt.hash(password, saltRounds); // Retorna la contraseña hasheada
+  }
   addUsuario() {
-    this.masterService.addUsuario(this.usuario).subscribe({
-      next: (res: CUsuario) => {
-        this.loadUsuarios();
-        this.closeModal();
-      },
-      error: (err) => {
-        console.error('Error al añadir usuario:', err);
-        this.showBootstrapAlert('danger', 'Ocurrió un error al añadir el usuario. Por favor, inténtelo de nuevo.');
-      }
+    // Convierte la contraseña a hash antes de enviarla
+    this.hashPassword(this.usuario.password).then((hashedPassword) => {
+      this.usuario.password = hashedPassword; // Asigna la contraseña hasheada
+      this.masterService.addUsuario(this.usuario).subscribe({
+        next: (res: CUsuario) => {
+          this.loadUsuarios();
+          this.closeModal();
+        },
+        error: (err) => {
+          console.error('Error al añadir usuario:', err);
+          this.showBootstrapAlert(
+            'danger',
+            'Ocurrió un error al añadir el usuario. Por favor, inténtelo de nuevo.'
+          );
+        },
+      });
     });
   }
   deleteUsuario(idUsario: number) {
     this.masterService.deleteUsuario(idUsario).subscribe({
       next: () => {
-        this.showBootstrapAlertPagina('success', 'Usuario eliminado');
+        this.showBootstrapAlertPagina(
+          'success',
+          'Usuario eliminado exitosamente'
+        );
         this.loadUsuarios();
       },
       error: (err) => {
         console.error('Error al eliminar usuario:', err);
-        this.showBootstrapAlertPagina('danger', 'Error al eliminar usuario.');
-      }
+        this.showBootstrapAlertPagina(
+          'danger',
+          'Error al eliminar usuario. No es posible eliminar usuarios matriculados'
+        );
+      },
     });
   }
   updateUsuario() {
@@ -63,8 +86,11 @@ export class EstudiantesPageComponent implements OnInit {
       },
       error: (err) => {
         console.error('Error al modificar usuario:', err);
-        this.showBootstrapAlert('danger', 'Ocurrió un error al modificar el usuario. Por favor, inténtelo de nuevo.');
-      }
+        this.showBootstrapAlert(
+          'danger',
+          'Ocurrió un error al modificar el usuario. Por favor, inténtelo de nuevo.'
+        );
+      },
     });
   }
 
@@ -79,12 +105,12 @@ export class EstudiantesPageComponent implements OnInit {
     alertDiv.setAttribute('role', 'alert');
     alertDiv.textContent = message;
 
-    this.alertModal.nativeElement.innerHTML = ''; 
+    this.alertModal.nativeElement.innerHTML = '';
     this.alertModal.nativeElement.appendChild(alertDiv);
 
     setTimeout(() => {
       this.alertModal.nativeElement.innerHTML = '';
-    }, 5000); 
+    }, 5000);
   }
 
   showBootstrapAlertPagina(type: string, message: string) {
@@ -93,7 +119,7 @@ export class EstudiantesPageComponent implements OnInit {
     alertDiv.setAttribute('role', 'alert');
     alertDiv.textContent = message;
 
-    this.alertPagina.nativeElement.innerHTML = ''; 
+    this.alertPagina.nativeElement.innerHTML = '';
     this.alertPagina.nativeElement.appendChild(alertDiv);
 
     setTimeout(() => {

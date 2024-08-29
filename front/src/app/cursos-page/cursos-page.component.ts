@@ -1,8 +1,14 @@
-import { Component, inject, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MasterService } from '../Service/master.service';
-import { IUsuario, CUsuario, ICurso, CCurso } from '../model/usuario';
+import {
+  Component,
+  ElementRef,
+  inject,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { MasterService } from '../Service/master.service';
+import { CCurso, CUsuario, ICurso, IUsuario } from '../model/usuario';
 
 declare const bootstrap: any;
 
@@ -11,7 +17,7 @@ declare const bootstrap: any;
   standalone: true,
   imports: [FormsModule, CommonModule],
   templateUrl: './cursos-page.component.html',
-  styleUrl: './cursos-page.component.css'
+  styleUrl: './cursos-page.component.css',
 })
 export class CursosPageComponent implements OnInit {
   @ViewChild('cursoModal') cursoModal?: ElementRef;
@@ -39,20 +45,29 @@ export class CursosPageComponent implements OnInit {
       },
       error: (err) => {
         console.error('Error al añadir curso:', err);
-        this.showBootstrapAlert('danger', 'Ocurrió un error al añadir el curso. Por favor, verifique que el nombre del curso no exista e inténtelo de nuevo.');
-      }
+        this.showBootstrapAlert(
+          'danger',
+          'Ocurrió un error al añadir el curso. Por favor, verifique que el nombre del curso no exista e inténtelo de nuevo.'
+        );
+      },
     });
   }
   deleteCurso(idCurso: number) {
     this.masterService.deleteCurso(idCurso).subscribe({
       next: () => {
-        this.showBootstrapAlertPagina('succes', 'Curso eliminado.');
+        this.showBootstrapAlertPagina(
+          'success',
+          'Curso eliminado exitosamente.'
+        );
         this.loadCursos();
       },
       error: (err) => {
-        this.showBootstrapAlertPagina('danger', 'Error al eliminar curso.');
+        this.showBootstrapAlertPagina(
+          'danger',
+          'Error al eliminar curso. No es posible eliminar un curso con estudiantes matriculados'
+        );
         console.error('Error al eliminar curso:', err);
-      }
+      },
     });
   }
   updateCurso() {
@@ -63,8 +78,11 @@ export class CursosPageComponent implements OnInit {
       },
       error: (err) => {
         console.error('Error al modificar curso:', err);
-        this.showBootstrapAlert('danger', 'Ocurrió un error al modificar el curso. Por favor, verifique que el nombre del curso no exista e inténtelo de nuevo.');
-      }
+        this.showBootstrapAlert(
+          'danger',
+          'Ocurrió un error al modificar el curso. Por favor, verifique que el nombre del curso no exista e inténtelo de nuevo.'
+        );
+      },
     });
   }
 
@@ -79,12 +97,12 @@ export class CursosPageComponent implements OnInit {
     alertDiv.setAttribute('role', 'alert');
     alertDiv.textContent = message;
 
-    this.alertModal.nativeElement.innerHTML = ''; 
+    this.alertModal.nativeElement.innerHTML = '';
     this.alertModal.nativeElement.appendChild(alertDiv);
 
     setTimeout(() => {
       this.alertModal.nativeElement.innerHTML = '';
-    }, 5000); 
+    }, 5000);
   }
 
   showBootstrapAlertPagina(type: string, message: string) {
@@ -98,7 +116,7 @@ export class CursosPageComponent implements OnInit {
 
     setTimeout(() => {
       this.alertPagina.nativeElement.innerHTML = '';
-    }, 5000); 
+    }, 5000);
   }
 
   closeModal() {

@@ -15,7 +15,7 @@ import java.util.Map;
 @Service
 public class AuthService {
 
-    private static final String AUTH_URL = "http://localhost:8080/realms/estudiantes-cursos/protocol/openid-connect/token";
+    private static final String AUTH_URL = "http://keycloak_web:8080/realms/estudiantes-cursos/protocol/openid-connect/token";
     private static final String CLIENT_ID = "backend";
     private static final String USERNAME = "admin2";
     private static final String PASSWORD = "admin2";

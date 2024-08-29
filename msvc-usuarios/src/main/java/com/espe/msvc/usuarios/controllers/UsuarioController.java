@@ -21,8 +21,8 @@ public class UsuarioController {
 
     @Autowired
     private UsuarioService service;
-    @Autowired
-    private PasswordEncoder passwordEncoder;
+    //@Autowired
+   // private PasswordEncoder passwordEncoder;
 
     @GetMapping("/getUsers")
     public List<Usuario> listar() {
@@ -43,7 +43,7 @@ public class UsuarioController {
         if (result.hasErrors()) {
             return validar(result);
         }
-        usuario.setPassword(passwordEncoder.encode(usuario.getPassword()));
+//        usuario.setPassword(passwordEncoder.encode(usuario.getPassword()));
         return ResponseEntity.status(HttpStatus.CREATED).body(service.guardar(usuario));
     }
 
