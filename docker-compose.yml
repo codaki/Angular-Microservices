@@ -3,9 +3,10 @@ version: '3.8'
 services:
 
   msvc-usuarios:
-    build:
-      context: ./msvc-usuarios
-      dockerfile: Dockerfile
+    # build:
+    #   context: ./msvc-usuarios
+    #   dockerfile: Dockerfile
+    image: codaki/oauth:usuarios
     ports:
       - "8001:8001"
     environment:
@@ -30,9 +31,10 @@ services:
       - host
 
   msvc-cursos:
-    build:
-      context: ./msvc-cursos
-      dockerfile: Dockerfile
+    # build:
+    #   context: ./msvc-cursos
+    #   dockerfile: Dockerfile
+    image: codaki/oauth:cursos
     ports:
       - "8002:8002"
     environment:
@@ -80,9 +82,10 @@ services:
     networks:
       - host
   frontend:
-    build:
-      context: ./front
-      dockerfile: Dockerfile
+    # build:
+    #   context: ./front
+    #   dockerfile: Dockerfile
+    image: codaki/oauth:frontend
     ports:
       - "4200:80"
     depends_on:
