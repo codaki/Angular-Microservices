@@ -10,6 +10,16 @@ services:
       - SPRING_DATASOURCE_USERNAME=root
       - SPRING_DATASOURCE_PASSWORD=password
       - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+      - SPRING_APPLICATION_NAME=msvc-usuarios
+      - SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUER_URI=http://localhost:8080/realms/estudiantes-cursos
+      - SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_JWK_SET_URI=http://localhost:8080/realms/estudiantes-cursos/protocol/openid-connect/certs
+      - JWT_AUTH_CONVERTER_RESOURCE_ID=backend
+      - JWT_AUTH_CONVERTER_PRINCIPAL_ATTRIBUTE=admin2
+      - SPRING_DATASOURCE_DRIVER_CLASS_NAME=com.mysql.cj.jdbc.Driver
+      - SPRING_JPA_DATABASE_PLATFORM=org.hibernate.dialect.MySQL8Dialect
+      - LOGGING_LEVEL_ORG_SPRINGFRAMEWORK_SECURITY=TRACE
+      - LOGGING_LEVEL_ORG_HIBERNATE_SQL=debug
+      - LOGGING_LEVEL_ORG_HIBERNATE_TYPE_DESCRIPTOR_SQL_BASICBINDER=trace
     depends_on:
       - mysql
     restart: always
@@ -25,6 +35,16 @@ services:
       - SPRING_DATASOURCE_USERNAME=postgres
       - SPRING_DATASOURCE_PASSWORD=password
       - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+      - SPRING_APPLICATION_NAME=msvc-cursos
+      - SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUER_URI=http://localhost:8080/realms/estudiantes-cursos
+      - SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_JWK_SET_URI=http://localhost:8080/realms/estudiantes-cursos/protocol/openid-connect/certs
+      - JWT_AUTH_CONVERTER_RESOURCE_ID=backend
+      - JWT_AUTH_CONVERTER_PRINCIPAL_ATTRIBUTE=admin2
+      - SPRING_DATASOURCE_DRIVER_CLASS_NAME=org.postgresql.Driver
+      - SPRING_JPA_DATABASE_PLATFORM=org.hibernate.dialect.PostgreSQLDialect
+      - LOGGING_LEVEL_ORG_SPRINGFRAMEWORK_SECURITY=TRACE
+      - LOGGING_LEVEL_ORG_HIBERNATE_SQL=debug
+      - LOGGING_LEVEL_ORG_HIBERNATE_TYPE_DESCRIPTOR_SQL_BASICBINDER=trace
     depends_on:
       - postgres
     networks:
@@ -54,7 +74,6 @@ services:
       - postgres-data:/var/lib/postgresql/data
     networks:
       - host
-    restart: always
   frontend:
     build:
       context: ./front
@@ -104,8 +123,6 @@ services:
       - "5433:5432" 
     networks:
       - host
-    depends_on:
-      - postgres
 
 networks:
   host:

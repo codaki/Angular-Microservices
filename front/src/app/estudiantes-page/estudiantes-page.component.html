@@ -147,7 +147,7 @@
                   [(ngModel)]="usuario.email"
                 />
               </div>
-              <div class="mb-3">
+              <div class="mb-3" *ngIf="usuarioId == 0">
                 <label for="inputPassword" class="col-form-label"
                   >Password</label
                 >

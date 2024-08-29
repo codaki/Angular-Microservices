@@ -6,10 +6,10 @@ import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import javax.naming.Binding;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -21,6 +21,8 @@ public class UsuarioController {
 
     @Autowired
     private UsuarioService service;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @GetMapping("/getUsers")
     public List<Usuario> listar() {
@@ -41,6 +43,7 @@ public class UsuarioController {
         if (result.hasErrors()) {
             return validar(result);
         }
+        usuario.setPassword(passwordEncoder.encode(usuario.getPassword()));
         return ResponseEntity.status(HttpStatus.CREATED).body(service.guardar(usuario));
     }
 
