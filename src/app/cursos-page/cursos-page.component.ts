@@ -46,11 +46,11 @@ export class CursosPageComponent implements OnInit {
   deleteCurso(idCurso: number) {
     this.masterService.deleteCurso(idCurso).subscribe({
       next: () => {
-        this.showBootstrapAlertPagina('succes', 'Curso eliminado.');
+        this.showBootstrapAlertPagina('success', 'Curso eliminado exitosamente.');
         this.loadCursos();
       },
       error: (err) => {
-        this.showBootstrapAlertPagina('danger', 'Error al eliminar curso.');
+        this.showBootstrapAlertPagina('danger', 'Error al eliminar curso. No es posible eliminar un curso con estudiantes matriculados');
         console.error('Error al eliminar curso:', err);
       }
     });

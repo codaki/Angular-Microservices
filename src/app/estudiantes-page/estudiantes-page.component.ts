@@ -46,12 +46,12 @@ export class EstudiantesPageComponent implements OnInit {
   deleteUsuario(idUsario: number) {
     this.masterService.deleteUsuario(idUsario).subscribe({
       next: () => {
-        this.showBootstrapAlertPagina('success', 'Usuario eliminado');
+        this.showBootstrapAlertPagina('success', 'Usuario eliminado exitosamente');
         this.loadUsuarios();
       },
       error: (err) => {
         console.error('Error al eliminar usuario:', err);
-        this.showBootstrapAlertPagina('danger', 'Error al eliminar usuario.');
+        this.showBootstrapAlertPagina('danger', 'Error al eliminar usuario. No es posible eliminar usuarios matriculados');
       }
     });
   }
