@@ -15,7 +15,7 @@ services:
       - SPRING_DATASOURCE_PASSWORD=password
       - SPRING_JPA_HIBERNATE_DDL_AUTO=update
       - SPRING_APPLICATION_NAME=msvc-usuarios
-      - SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUER_URI=http://localhost:8080/realms/estudiantes-cursos
+      - SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUER_URI=http://40.70.59.141:8080/realms/estudiantes-cursos
       - SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_JWK_SET_URI=http://keycloak_web:8080/realms/estudiantes-cursos/protocol/openid-connect/certs
       - JWT_AUTH_CONVERTER_RESOURCE_ID=backend
       - JWT_AUTH_CONVERTER_PRINCIPAL_ATTRIBUTE=admin2
@@ -43,7 +43,7 @@ services:
       - SPRING_DATASOURCE_PASSWORD=password
       - SPRING_JPA_HIBERNATE_DDL_AUTO=update
       - SPRING_APPLICATION_NAME=msvc-cursos
-      - SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUER_URI=http://localhost:8080/realms/estudiantes-cursos
+      - SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUER_URI=http://40.70.59.141:8080/realms/estudiantes-cursos
       - SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_JWK_SET_URI=http://keycloak_web:8080/realms/estudiantes-cursos/protocol/openid-connect/certs
       - JWT_AUTH_CONVERTER_RESOURCE_ID=backend
       - JWT_AUTH_CONVERTER_PRINCIPAL_ATTRIBUTE=admin2
@@ -102,15 +102,18 @@ services:
       KC_DB_URL: jdbc:postgresql://keycloakdb:5432/keycloak  
       KC_DB_USERNAME: keycloak
       KC_DB_PASSWORD: password
-      KC_HOSTNAME: localhost
+      KC_HOSTNAME: 40.70.59.141
       KC_HOSTNAME_PORT: 8080
-      KC_HOSTNAME_STRICT: false
-      KC_HOSTNAME_STRICT_HTTPS: false
+      KC_HOSTNAME_STRICT: "false"
+      KC_HOSTNAME_STRICT_HTTPS: "false"
+      KC_HTTP_ENABLED: "true"
+      KC_PROXY: edge
+      KC_SSL_REQUIRED: "NONE"
       KC_LOG_LEVEL: info
-      KC_METRICS_ENABLED: true
-      KC_HEALTH_ENABLED: true
-      KEYCLOAK_ADMIN: Admin
-      KEYCLOAK_ADMIN_PASSWORD: grupo4Admin2024@
+      KC_METRICS_ENABLED: "true"
+      KC_HEALTH_ENABLED: "true"
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: admin
     command: start-dev
     depends_on:
       - keycloakdb

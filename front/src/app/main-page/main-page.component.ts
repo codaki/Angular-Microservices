@@ -13,7 +13,7 @@ export class MainPageComponent {
 
   private authenticate() {
     const url =
-      'http://localhost:8080/realms/estudiantes-cursos/protocol/openid-connect/token';
+      'http://40.70.59.141:8080/realms/estudiantes-cursos/protocol/openid-connect/token';
     const body = new URLSearchParams();
     body.set('grant_type', 'password');
     body.set('client_id', 'backend');

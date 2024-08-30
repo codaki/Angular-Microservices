@@ -3,7 +3,7 @@ import Keycloak from 'keycloak-js';
 import { UserProfile } from './user-profile';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class KeycloakService {
   private _keycloak: Keycloak | undefined;
@@ -11,9 +11,9 @@ export class KeycloakService {
   private get keycloak(): Keycloak {
     if (!this._keycloak) {
       this._keycloak = new Keycloak({
-        url: 'http://localhost:8080', // Asegúrate de que esta URL sea la correcta para tu entorno
+        url: 'http://40.70.59.141:8080',
         realm: 'estudiantes-cursos',
-        clientId: 'frontend'
+        clientId: 'frontend',
       });
     }
     return this._keycloak;
@@ -26,16 +26,15 @@ export class KeycloakService {
   }
 
   async init(): Promise<void> {
-    console.log("Inicializando Keycloak...");
+    console.log('Inicializando Keycloak...');
     const authenticated = await this.keycloak.init({
       onLoad: 'login-required',
-      //pkceMethod: 'S256', // Debe coincidir con el valor configurado en Keycloak
-      //redirectUri: 'http://localhost:4200', // Ajusta esta URL según sea necesario
-      checkLoginIframe: false // Desactiva el iframe de verificación
+
+      checkLoginIframe: false,
     });
 
     if (authenticated) {
-      this._profile = await this.keycloak.loadUserProfile() as UserProfile;
+      this._profile = (await this.keycloak.loadUserProfile()) as UserProfile;
       this._profile.token = this.keycloak.token || '';
     }
   }
@@ -46,7 +45,7 @@ export class KeycloakService {
 
   logout(): Promise<void> {
     return this.keycloak.logout({
-      redirectUri: 'http://localhost:4200'
+      redirectUri: 'http://40.70.59.141:4200',
     });
   }
 }

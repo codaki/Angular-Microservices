@@ -15,8 +15,8 @@ import {
   providedIn: 'root',
 })
 export class MasterService {
-  apiUrlUsuario: string = 'http://localhost:8001/';
-  apiUrlCurso: string = 'http://localhost:8002/';
+  apiUrlUsuario: string = 'http://40.70.59.141:8001/';
+  apiUrlCurso: string = 'http://40.70.59.141:8002/';
 
   constructor(private http: HttpClient) {}
 
